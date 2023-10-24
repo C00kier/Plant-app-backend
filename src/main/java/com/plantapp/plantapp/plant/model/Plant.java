@@ -33,7 +33,7 @@ public class Plant {
 
     @Column(length = 65000)
     private String translation;
-    @Column(length = 65000)
+    @Column(columnDefinition = "text")
     private String plantOverview;
 
     @Column(length = 65000)
