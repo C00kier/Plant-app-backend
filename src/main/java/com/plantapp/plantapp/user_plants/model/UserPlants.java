@@ -20,7 +20,7 @@ public class UserPlants {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userPlantId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 
