@@ -25,8 +25,18 @@ public class User {
     @NotBlank
     private String password;
 
-    private String nickname;
+    private String login;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    @Column(nullable = true)
+    private String photoUrl;
+
+    public User(String email, String password, String login){
+        this.email = email;
+        this.password = password;
+        this.login = login;
+        this.userType = UserType.USER;
+    }
 }
