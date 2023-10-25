@@ -22,11 +22,11 @@ public class UserPlantsController {
         return userPlantsService.getUserPlantsByUserId(userId);
     }
 
-    @PostMapping("/{user-id}/{user-plant-id}")
+    @PostMapping("/{user-id}/{plant-id}")
     public void addPlantToUserPlantsById(
             @PathVariable("user-id") int userId,
-            @PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.addPlantToUserPlantsById(userId,userPlantId);
+            @PathVariable("plant-id") int plantId){
+        userPlantsService.addPlantToUserPlantsById(userId,plantId);
     }
 
     @DeleteMapping("/{user-plant-id}")
