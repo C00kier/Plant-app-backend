@@ -1,7 +1,6 @@
 package com.plantapp.plantapp.plant.model;
 
 import jakarta.persistence.*;
-import java.util.UUID;
 
 @Entity
 public class Plant {
