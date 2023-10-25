@@ -4,11 +4,9 @@ import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.user.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 @Entity
