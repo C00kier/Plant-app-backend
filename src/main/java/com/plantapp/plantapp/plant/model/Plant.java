@@ -7,8 +7,8 @@ import java.util.UUID;
 public class Plant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private double matureSize;
 
@@ -33,7 +33,7 @@ public class Plant {
 
     @Column(length = 65000)
     private String translation;
-    @Column(length = 65000)
+    @Column(columnDefinition = "text")
     private String plantOverview;
 
     @Column(length = 65000)
