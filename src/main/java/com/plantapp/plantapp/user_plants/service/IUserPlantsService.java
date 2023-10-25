@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUserPlantsService {
     List<UserPlants> getUserPlantsByUserId(int userId);
-    void addPlantToUserPlantsById(int userId, int userPlantId);
+    void addPlantToUserPlantsById(int userId, int plantId);
     void removePlantFromUserPlantsById(int userPlantId);
     void updateUserPlantRoomById(int userPlantId, String roomName);
     void updateUserPlantAliasById(int userPlantId, String alias);

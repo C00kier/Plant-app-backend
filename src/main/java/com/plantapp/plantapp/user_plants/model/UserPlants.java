@@ -9,13 +9,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_plants")
 public class UserPlants {
+
+    public UserPlants(User user, Plant plant, ZonedDateTime added) {
+        this.user = user;
+        this.plant = plant;
+        this.added = added;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userPlantId;
@@ -33,5 +40,5 @@ public class UserPlants {
     private String alias;
 
     @NotBlank
-    private LocalDate added;
+    private ZonedDateTime added;
 }
