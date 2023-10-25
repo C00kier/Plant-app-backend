@@ -3,7 +3,6 @@ package com.plantapp.plantapp.user_plants.service;
 import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.plant.repository.PlantRepository;
 import com.plantapp.plantapp.user.model.User;
-//import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_plants.model.UserPlants;
 import com.plantapp.plantapp.user_plants.repository.UserPlantsRepository;
@@ -57,7 +56,8 @@ public class UserPlantsService implements IUserPlantsService {
     public void removePlantFromUserPlantsById(int userPlantId) {
         Optional<UserPlants> optionalUserPlant = userPlantsRepository.findById(userPlantId);
         if (optionalUserPlant.isPresent()) {
-            userPlantsRepository.deleteById(userPlantId);
+            UserPlants userPlant = optionalUserPlant.get();
+            userPlantsRepository.delete(userPlant);
         }
     }
 
