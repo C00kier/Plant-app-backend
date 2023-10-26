@@ -14,4 +14,7 @@ public class UserGameProgressController {
 
     @PatchMapping("/{user-id}")
     public void updateUserExperienceByUserId(@PathVariable("user-id") int userId) {}
+
+    @PostMapping("/{user-id}")
+    public void postUserExperienceByUserId(@PathVariable("user-id") int userId){}
 }
