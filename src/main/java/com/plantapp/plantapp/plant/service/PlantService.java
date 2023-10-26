@@ -31,28 +31,23 @@ public class PlantService implements IPlantService {
     @Override
     @Transactional
     public List<Plant> getPlantsByName(String plantName) {
-        String likeExpression = "%" + plantName + "%";
-        return plantRepository.findByBotanicalNameLikeOrCommonNameLike(likeExpression, likeExpression);
+        String likeExpression = "%" + plantName.toLowerCase() + "%";
+        return plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(plantName);
     }
 
     @Override
-    public Plant addNewPlant(double matureSize, boolean toxicity, boolean airPurifying,
-                                       int repotting, int fertilizer, int sun, int water,
-                                       int careDifficulty, String botanicalName, String commonName,
-                                       String translation, String plantOverview, String nativeArea,
-                                       String plantType, String careDescription, String waterExtended,
-                                       String sunExtended, String temperature, String humidity,
-                                       String fertilizerExtended, String bloomTime, String repottingExtended,
-                                       String soilType, String soilPh, String propagating, String pestsAndDiseases,
-                                       String pruning) {
-        return plantRepository.save(new Plant(matureSize, toxicity, airPurifying, repotting, fertilizer, sun,
-                water, careDifficulty, botanicalName, commonName, translation, plantOverview, nativeArea, plantType, careDescription,
-                waterExtended, sunExtended, temperature, humidity, fertilizerExtended, bloomTime, repottingExtended, soilType, soilPh,
-                propagating, pestsAndDiseases, pruning));
+    public Plant addNewPlant(Plant plant) {
+        return plantRepository.save(plant);
     }
 
     @Override
-    public Optional<Plant> deletePlantById(int plantId) {
-        return plantRepository.deleteById(plantId);
+    public void deletePlantById(int plantId) {
+        plantRepository.deleteById(plantId);
+    }
+
+    @Override
+    public Plant changePlantById(int plantId, Plant plant) {
+        plant.setId(plantId);
+        return plantRepository.save(plant);
     }
 }
