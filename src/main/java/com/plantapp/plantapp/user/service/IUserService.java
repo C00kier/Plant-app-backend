@@ -18,4 +18,8 @@ public interface IUserService {
     void updateUserLoginById(int userId, String newLogin);
 
     void updateUserPhotoById(int userId, String newPhotoUrl);
+
+    boolean authenticateUserByEmail(String email, String password);
+
+    boolean authenticateUserByLogin(String email, String password);
 }
