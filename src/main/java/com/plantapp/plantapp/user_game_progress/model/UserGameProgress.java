@@ -13,8 +13,9 @@ public class UserGameProgress {
     @OneToOne
     private User user;
 
-
-
+    public int getExperience() {
+        return experience;
+    }
 
 
 }
