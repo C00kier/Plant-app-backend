@@ -53,14 +53,11 @@ public class PlantController {
     }
 
     @GetMapping("/{plant-id}")
-    public ResponseEntity<Optional<Plant>> getPlantById(@PathVariable("plant-id") int plantId) {
+    public ResponseEntity<Plant> getPlantById(@PathVariable("plant-id") int plantId) {
         try {
             Optional<Plant> plant = plantService.getPlantById(plantId);
-            if (plant.isPresent()) {
-                return ResponseEntity.ok(plant);
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
+            return plant.map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
