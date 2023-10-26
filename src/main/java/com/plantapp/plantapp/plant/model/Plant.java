@@ -1,8 +1,10 @@
 package com.plantapp.plantapp.plant.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Plant {
 
     @Id
