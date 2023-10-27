@@ -29,7 +29,7 @@ public class UserPlants {
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "plant_id", referencedColumnName = "id")
     private Plant plant;
 
