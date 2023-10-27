@@ -12,15 +12,9 @@ public interface IPlantService {
 
     List<Plant> getPlantsByName(String plantName);
 
-    Plant addNewPlant(double matureSize, boolean toxicity, boolean airPurifying,
-                                int repotting, int fertilizer, int sun, int water,
-                                int careDifficulty, String botanicalName, String commonName,
-                                String translation, String plantOverview, String nativeArea,
-                                String plantType, String careDescription, String waterExtended,
-                                String sunExtended, String temperature, String humidity,
-                                String fertilizerExtended, String bloomTime, String repottingExtended,
-                                String soilType, String soilPh, String propagating, String pestsAndDiseases,
-                                String pruning);
+    Plant addNewPlant(Plant plant);
 
-    Optional<Plant> deletePlantById(int plantId);
+    void deletePlantById(int plantId);
+
+    Plant changePlantById(int plantId, Plant plant);
 }

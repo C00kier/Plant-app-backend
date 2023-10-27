@@ -22,58 +22,54 @@ public class PlantController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Plant>> getAllPlants(){
-        try{
+    public ResponseEntity<List<Plant>> getAllPlants() {
+        try {
             List<Plant> plants = plantService.getAllPlants();
             return ResponseEntity.ok(plants);
-        } catch(Exception error) {
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("/add")
-    public void addNewPlant(@RequestBody Plant plant){
-       plantService.addNewPlant(
-                plant.getMatureSize(), plant.isToxicity(), plant.isAirPurifying(),
-                plant.getRepotting(), plant.getFertilizer(), plant.getSun(),
-               plant.getWater(), plant.getCareDifficulty(), plant.getBotanicalName(),
-               plant.getCommonName(), plant.getTranslation(), plant.getPlantOverview(),
-               plant.getNativeArea(), plant.getPlantType(), plant.getCareDescription(),
-               plant.getWaterExtended(), plant.getSunExtended(), plant.getTemperature(),
-               plant.getHumidity(), plant.getFertilizerExtended(), plant.getBloomTime(),
-               plant.getRepottingExtended(), plant.getSoilType(), plant.getSoilPh(),
-               plant.getPropagating(), plant.getPestsAndDiseases(), plant.getPruning());
+    public ResponseEntity<Plant> addNewPlant(@RequestBody Plant plant) {
+        return ResponseEntity.ok(plantService.addNewPlant(plant));
     }
 
     @DeleteMapping("/delete/{plant-id}")
-    public ResponseEntity<Optional<Plant>> deletePlantById(@PathVariable("plant-id") int plantId){
-        try{
-            Optional<Plant> plant = plantService.deletePlantById(plantId);
-            return ResponseEntity.ok(plant);
-        } catch(Exception error) {
+    public ResponseEntity<Object> deletePlantById(@PathVariable("plant-id") int plantId) {
+            plantService.deletePlantById(plantId);
+           return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{plant-id}")
+    public ResponseEntity<Plant> changePlantById(@PathVariable("plant-id") int plantId, @RequestBody Plant plant) {
+        try {
+            Plant changedPlant = plantService.changePlantById(plantId, plant);
+            return ResponseEntity.ok(changedPlant);
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-    @PatchMapping("/{plant-id}")
 
     @GetMapping("/{plant-id}")
-    public ResponseEntity<Optional<Plant>> getPlantById(@PathVariable("plant-id") int plantId){
-        try{
-        Optional<Plant> plant = plantService.getPlantById(plantId);
-        return ResponseEntity.ok(plant);
-        } catch(Exception error) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-    @GetMapping("/{plant-name}")
-    public ResponseEntity<List<Plant>> getPlantsByName(@PathVariable("plant-name") String plantName){
-        try{
-            List<Plant> plants = plantService.getPlantsByName(plantName);
-            return ResponseEntity.ok(plants);
-        } catch(Exception error) {
+    public ResponseEntity<Plant> getPlantById(@PathVariable("plant-id") int plantId) {
+        try {
+            Optional<Plant> plant = plantService.getPlantById(plantId);
+            return plant.map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @GetMapping("/name/{plant-name}")
+    public ResponseEntity<List<Plant>> getPlantsByName(@PathVariable("plant-name") String plantName) {
+        try {
+            List<Plant> plants = plantService.getPlantsByName(plantName);
+            return ResponseEntity.ok(plants);
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
