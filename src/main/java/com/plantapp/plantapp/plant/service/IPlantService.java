@@ -1,6 +1,7 @@
 package com.plantapp.plantapp.plant.service;
 
 import com.plantapp.plantapp.plant.model.Plant;
+import com.plantapp.plantapp.plant.model.PlantNameDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface IPlantService {
     List<Plant> getAllPlants();
     Optional<Plant> getPlantById(int plantId);
 
-    List<Plant> getPlantsByName(String plantName);
+    List<PlantNameDTO> getPlantsByName(String plantName);
 
     Plant addNewPlant(Plant plant);
 
