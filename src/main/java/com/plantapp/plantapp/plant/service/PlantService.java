@@ -1,9 +1,9 @@
 package com.plantapp.plantapp.plant.service;
 
 import com.plantapp.plantapp.plant.model.Plant;
+import com.plantapp.plantapp.plant.model.PlantNameDTO;
 import com.plantapp.plantapp.plant.repository.PlantRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +12,11 @@ import java.util.Optional;
 @Service
 public class PlantService implements IPlantService {
     private final PlantRepository plantRepository;
+    private final PlantDTOMapper plantDTOMapper;
 
-    @Autowired
-    public PlantService(PlantRepository plantRepository) {
+    public PlantService(PlantRepository plantRepository, PlantDTOMapper plantDTOMapper) {
         this.plantRepository = plantRepository;
+        this.plantDTOMapper = plantDTOMapper;
     }
 
     @Override
@@ -30,9 +31,10 @@ public class PlantService implements IPlantService {
 
     @Override
     @Transactional
-    public List<Plant> getPlantsByName(String plantName) {
+    public List<PlantNameDTO> getPlantsByName(String plantName) {
         String likeExpression = "%" + plantName.toLowerCase() + "%";
-        return plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(plantName);
+        List<Plant> plants = plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(likeExpression);
+        return plantDTOMapper.getShorterPlant(plants);
     }
 
     @Override
