@@ -33,6 +33,8 @@ public class User {
     @Column(nullable = true)
     private String photoUrl;
 
+    private boolean isActive;
+
     public User(String email, String password, String login){
         this.email = email;
         this.password = password;
