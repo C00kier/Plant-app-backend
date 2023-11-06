@@ -1,17 +1,18 @@
 package com.plantapp.plantapp.user_game_progress.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user-game-progress")
 public class UserGameProgressController {
 
-    @GetMapping("/{user-id}")
-    public int getUserExperienceByUserId(@PathVariable("user-id") int userId) { return 0; }
+    @GetMapping("/get-exp")
+    public ResponseEntity<Integer> getUserExperienceByUserId(@RequestBody int userId) { return ResponseEntity.ok().build(); }
 
-    @DeleteMapping("/user-id")
-    public void removeUserExperienceByUserId(@PathVariable("user-id") int userId) {}
+    @DeleteMapping("/delete-exp")
+    public void removeUserExperienceByUserId(@RequestBody int userId) {}
 
-    @PatchMapping("/{user-id}")
-    public void updateUserExperienceByUserId(@PathVariable("user-id") int userId) {}
+    @PatchMapping("/update-exp")
+    public void updateUserExperienceByUserId(@RequestBody int userId) {}
 }

@@ -33,39 +33,33 @@ public class UserService implements IUserService{
             userRepository.deleteById(userId);
         }
     }
+
     @Override
-    public void updateUserPasswordById(int userId, String newPassword){
+    public void updateUser(int userId, String newPassword, String newEmail, String newLogin, String newPhotoUrl) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setPassword(newPassword);
+            if (newPassword != null) {
+                user.setPassword(newPassword);
+            }
+            if (newEmail != null) {
+                user.setEmail(newEmail);
+            }
+            if (newLogin != null) {
+                user.setLogin(newLogin);
+            }
+            if (newPhotoUrl != null) {
+                user.setPhotoUrl(newPhotoUrl);
+            }
             userRepository.save(user);
         }
     }
-    @Override
+
     public void updateUserEmailById(int userId, String newEmail){
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()){
             User user = userOptional.get();
             user.setEmail(newEmail);
-            userRepository.save(user);
-        }
-    }
-    @Override
-    public void updateUserLoginById(int userId, String newLogin){
-        Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
-            User user = userOptional.get();
-            user.setLogin(newLogin);
-            userRepository.save(user);
-        }
-    }
-    @Override
-    public void updateUserPhotoById(int userId, String newPhotoUrl){
-        Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
-            User user = userOptional.get();
-            user.setPhotoUrl(newPhotoUrl);
             userRepository.save(user);
         }
     }
@@ -80,4 +74,15 @@ public class UserService implements IUserService{
         Optional<User> user = userRepository.findByLogin(login);
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
     }
+
+    @Override
+    public void changeUserStatus(int userId, boolean newStatus) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setActive(newStatus);
+            userRepository.save(user);
+        }
+    }
+
 }
