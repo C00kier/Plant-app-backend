@@ -1,6 +1,7 @@
 package com.plantapp.plantapp.plant.controller;
 
 import com.plantapp.plantapp.plant.model.Plant;
+import com.plantapp.plantapp.plant.model.PlantNameDTO;
 import com.plantapp.plantapp.plant.service.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,9 +65,9 @@ public class PlantController {
     }
 
     @GetMapping("/name/{plant-name}")
-    public ResponseEntity<List<Plant>> getPlantsByName(@PathVariable("plant-name") String plantName) {
+    public ResponseEntity<List<PlantNameDTO>> getPlantsByName(@PathVariable("plant-name") String plantName) {
         try {
-            List<Plant> plants = plantService.getPlantsByName(plantName);
+            List<PlantNameDTO> plants = plantService.getPlantsByName(plantName);
             return ResponseEntity.ok(plants);
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
