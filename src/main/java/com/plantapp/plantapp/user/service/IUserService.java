@@ -5,7 +5,7 @@ import com.plantapp.plantapp.user.model.User;
 import java.util.Optional;
 
 public interface IUserService {
-    void addUser(String email, String password, String login);
+    void addUser(String email, String password, String username);
 
     Optional<User> getUserById(int userId);
 
@@ -15,11 +15,11 @@ public interface IUserService {
 
     void updateUserEmailById(int userId, String newEmail);
 
-    void updateUserLoginById(int userId, String newLogin);
+    void updateUsernameById(int userId, String newUsername);
 
     void updateUserPhotoById(int userId, String newPhotoUrl);
 
     boolean authenticateUserByEmail(String email, String password);
 
-    boolean authenticateUserByLogin(String email, String password);
+    boolean authenticateUserByUsername(String email, String password);
 }

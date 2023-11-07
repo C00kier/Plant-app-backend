@@ -28,14 +28,14 @@ public class AuthenticationService {
             return null;
         }
 
-        User user = new User();
+        var user = new User();
         user.setUserName(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUserType(UserType.USER);
         userRepository.save(user);
 
-        String jwt = jwtService.generateToken((UserDetails) user);
+        String jwt = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(jwt)
@@ -50,7 +50,7 @@ public class AuthenticationService {
 
         User user = userRepository.findByUserName(request.getUsername()).orElseThrow();
 
-        String jwt = jwtService.generateToken((UserDetails) user);
+        String jwt = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(jwt)
