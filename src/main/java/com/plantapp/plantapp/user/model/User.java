@@ -7,12 +7,15 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+
 @Table(name="plants_user")
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class User {
 
     @Id
@@ -25,7 +28,7 @@ public class User {
     @NotBlank
     private String password;
 
-    private String login;
+    private String userName;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
@@ -33,10 +36,10 @@ public class User {
     @Column(nullable = true)
     private String photoUrl;
 
-    public User(String email, String password, String login){
+    public User(String email, String password, String userName){
         this.email = email;
         this.password = password;
-        this.login = login;
+        this.userName = userName;
         this.userType = UserType.USER;
     }
 }
