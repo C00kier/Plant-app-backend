@@ -21,6 +21,14 @@ public class UserGameProgressService implements IUserGameProgressService{
 }
 
     @Override
+    public void postUserExperienceByUserId(int userId, int exp) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()){
+            userGameProgressRepository.save(new UserGameProgress(exp, optionalUser.get()));
+        }
+    }
+
+    @Override
     public int getUserExperienceByUserId(int userId) {
     Optional<User> optionalUser = userRepository.findById(userId);
     if(optionalUser.isPresent()){
