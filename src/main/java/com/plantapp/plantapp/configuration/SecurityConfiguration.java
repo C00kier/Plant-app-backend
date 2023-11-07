@@ -32,12 +32,11 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/", "/user/create-user", "/user/login").permitAll()
+                                .requestMatchers("/").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .anyRequest()
-                                .authenticated())
+                                .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
