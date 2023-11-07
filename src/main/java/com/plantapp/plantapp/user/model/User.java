@@ -39,4 +39,8 @@ public class User {
         this.login = login;
         this.userType = UserType.USER;
     }
+
+    public User(int userId){
+        this.userId = userId;
+    }
 }
