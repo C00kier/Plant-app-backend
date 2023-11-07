@@ -18,9 +18,6 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-//    Czym dokładnie jest interfejs user details
-
-
     @Value("${secret_key}")
     private String SECRET_KEY;
 
@@ -34,7 +31,6 @@ public class JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
-        System.out.println("Tutaj drukujemy claim" + claims.toString());
         return claimsResolver.apply(claims);
     }
 

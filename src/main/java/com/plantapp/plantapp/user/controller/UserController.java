@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user){
-        userService.addUser(user.getEmail(), user.getPassword(), user.getLogin());
+        userService.addUser(user.getEmail(), user.getPassword(), user.getUserName());
     }
 
     @GetMapping("/{user-id}")

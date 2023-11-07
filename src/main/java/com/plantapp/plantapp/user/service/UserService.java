@@ -52,11 +52,11 @@ public class UserService implements IUserService{
         }
     }
     @Override
-    public void updateUserLoginById(int userId, String newLogin){
+    public void updateUserLoginById(int userId, String newUsername){
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            user.setLogin(newLogin);
+            user.setUserName(newUsername);
             userRepository.save(user);
         }
     }
@@ -76,8 +76,8 @@ public class UserService implements IUserService{
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
     };
     @Override
-    public boolean authenticateUserByLogin(String login, String password){
-        Optional<User> user = userRepository.findByLogin(login);
+    public boolean authenticateUserByLogin(String username, String password){
+        Optional<User> user = userRepository.findByUserName(username);
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
     }
 }
