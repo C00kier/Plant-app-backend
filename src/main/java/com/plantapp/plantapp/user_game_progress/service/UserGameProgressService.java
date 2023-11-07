@@ -23,20 +23,22 @@ public class UserGameProgressService implements IUserGameProgressService{
     @Override
     public void postUserExperienceByUserId(int userId, int exp) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isPresent()){
+        if(optionalUser.isPresent()){
             userGameProgressRepository.save(new UserGameProgress(exp, optionalUser.get()));
         }
     }
 
     @Override
     public int getUserExperienceByUserId(int userId) {
-    Optional<User> optionalUser = userRepository.findById(userId);
-    if(optionalUser.isPresent()){
-        Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
-        int userExperience = optionalUserGameProgress.get().getExperience();
-        return userExperience;
-    }
-    return 0;
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
+
+            if (optionalUserGameProgress.isPresent()) {
+                return optionalUserGameProgress.get().getExperience();
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -54,8 +56,7 @@ public class UserGameProgressService implements IUserGameProgressService{
     if(optionalUser.isPresent()){
         Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
         int userExperience = optionalUserGameProgress.get().getExperience();
-        int updatedExperience = userExperience + exp;
-        return updatedExperience;
+        return userExperience + exp;
     }
         return 0;
     }
