@@ -18,4 +18,8 @@ public interface IPlantService {
     void deletePlantById(int plantId);
 
     Plant changePlantById(int plantId, Plant plant);
+    List<Plant> getPlantsBySunIntensity(int sun);
+    List<Plant> getPlantsByDifficulty(int difficulty);
+    List<Plant> getAirPuryfyingPlants();
+    List<Plant> getNonToxicPlants();
 }

@@ -73,4 +73,44 @@ public class PlantController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/filter/sun/{sun}")
+    public ResponseEntity<List<Plant>> getPlantsBySunIntensity(@PathVariable("sun") int sun){
+        try{
+            List<Plant> plants = plantService.getPlantsBySunIntensity(sun);
+            return ResponseEntity.ok(plants);
+        }catch(Exception error){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter/difficulty/{difficulty}")
+    public ResponseEntity<List<Plant>> getPlantsByDifficulty(@PathVariable("difficulty") int difficulty){
+        try{
+            List<Plant> plants = plantService.getPlantsByDifficulty(difficulty);
+            return ResponseEntity.ok(plants);
+        }catch(Exception error){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter/airpuryfying")
+    public ResponseEntity<List<Plant>> getAirPuryfyingPlants(){
+        try{
+            List<Plant> plants = plantService.getAirPuryfyingPlants();
+            return ResponseEntity.ok(plants);
+        }catch(Exception error){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter/nontoxic")
+    public ResponseEntity<List<Plant>> getNonToxicPlants(){
+        try{
+            List<Plant> plants = plantService.getNonToxicPlants();
+            return ResponseEntity.ok(plants);
+        }catch(Exception error){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
