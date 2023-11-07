@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user){
-        userService.addUser(user.getEmail(), user.getPassword(), user.getUserName());
+        userService.addUser(user.getEmail(), user.getPassword(), user.getUsername());
     }
 
     @GetMapping("/{user-id}")
@@ -34,10 +34,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
-        String login = loginRequest.getLogin();
+        String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         if ((email != null && userService.authenticateUserByEmail(email, password)) ||
-                (login != null && userService.authenticateUserByLogin(login, password))) {
+                (username != null && userService.authenticateUserByUsername(username, password))) {
 
             return ResponseEntity.ok("Login successful");
         } else {
@@ -56,8 +56,8 @@ public class UserController {
     }
 
     @PutMapping("/update-login/{user-id}")
-    public void updateUserLogin(@PathVariable("user-id") int userId, @RequestBody String newLogin){
-        userService.updateUserLoginById(userId, newLogin);
+    public void updateUsername(@PathVariable("user-id") int userId, @RequestBody String newUsername){
+        userService.updateUsernameById(userId, newUsername);
     }
 
     @PutMapping("/update-photo/{user-id}")
