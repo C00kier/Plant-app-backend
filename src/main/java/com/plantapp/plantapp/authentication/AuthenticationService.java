@@ -22,7 +22,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
 
-        boolean userExists = userRepository.existsByUserNameOrUserEmail(request.getUsername(), request.getEmail());
+        boolean userExists = userRepository.existsByUserNameOrEmail(request.getUsername(), request.getEmail());
 
         if (userExists) {
             return null;
