@@ -4,10 +4,7 @@ import com.plantapp.plantapp.user_type.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +14,13 @@ import java.util.List;
 
 @Entity
 @Data
-
 @Table(name="plants_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
 public class User implements UserDetails {
 
     @Id
