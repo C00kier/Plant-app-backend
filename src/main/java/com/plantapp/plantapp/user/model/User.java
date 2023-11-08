@@ -17,8 +17,6 @@ import java.util.List;
 @Table(name="users")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @ToString
 @Builder
 public class User implements UserDetails {
@@ -41,9 +39,6 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String photoUrl;
 
-
-    public User(String email, String password, String userName){}
-
     private boolean isActive;
 
     public User(String email, String password, String userName){
@@ -53,6 +48,9 @@ public class User implements UserDetails {
         this.userType = UserType.USER;
     }
 
+    public User(int userId){
+        this.userId = userId;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -82,9 +80,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-
-    public User(int userId){
-        this.userId = userId;
-
     }
 }
