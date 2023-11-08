@@ -3,6 +3,7 @@ package com.plantapp.plantapp.user_plants.controller;
 import com.plantapp.plantapp.user_plants.model.UserPlants;
 import com.plantapp.plantapp.user_plants.service.UserPlantsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +18,16 @@ public class UserPlantsController {
         this.userPlantsService = userPlantsService;
     }
 
-    @GetMapping("/{user-id}")
-    public List<UserPlants> getUserPlantsByUserId(@PathVariable("user-id") int userId){
-        return userPlantsService.getUserPlantsByUserId(userId);
+
+    @GetMapping()
+    public ResponseEntity<List<UserPlants>> getUserPlantsByUserId(@RequestBody int userId) {
+        List<UserPlants> userPlants = userPlantsService.getUserPlantsByUserId(userId);
+        return ResponseEntity.ok(userPlants);
     }
 
-    @PostMapping("/{user-id}/{plant-id}")
+    @PostMapping("/add/{plant-id}")
     public void addPlantToUserPlantsById(
-            @PathVariable("user-id") int userId,
+            @RequestBody int userId,
             @PathVariable("plant-id") int plantId){
         userPlantsService.addPlantToUserPlantsById(userId,plantId);
     }
