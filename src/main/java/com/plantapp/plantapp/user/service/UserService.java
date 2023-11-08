@@ -18,8 +18,8 @@ public class UserService implements IUserService{
         this.userRepository = userRepository;
     }
     @Override
-    public void addUser(String email, String password, String login){
-        userRepository.save(new User(email, password, login));
+    public void addUser(String email, String password, String username){
+        userRepository.save(new User(email, password, username));
     }
     @Override
     public Optional<User> getUserById(int userId){
@@ -65,13 +65,32 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public void updateUsernameById(int userId, String newUsername){
+        Optional<User> userOptional = userRepository.findById(userId);
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            user.setUserName(newUsername);
+            userRepository.save(user);
+        }
+    }
+    @Override
+    public void updateUserPhotoById(int userId, String newPhotoUrl){
+        Optional<User> userOptional = userRepository.findById(userId);
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            user.setPhotoUrl(newPhotoUrl);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
     public boolean authenticateUserByEmail(String email, String password){
         Optional<User> user = userRepository.findByEmail(email);
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
-    };
+    }
     @Override
-    public boolean authenticateUserByLogin(String login, String password){
-        Optional<User> user = userRepository.findByLogin(login);
+    public boolean authenticateUserByUsername(String username, String password){
+        Optional<User> user = userRepository.findByUserName(username);
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
     }
 

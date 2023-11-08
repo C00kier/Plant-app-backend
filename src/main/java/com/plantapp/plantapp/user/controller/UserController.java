@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user){
-        userService.addUser(user.getEmail(), user.getPassword(), user.getLogin());
+        userService.addUser(user.getEmail(), user.getPassword(), user.getUsername());
     }
 
     @GetMapping()
@@ -52,10 +52,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
-        String login = loginRequest.getLogin();
+        String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         if ((email != null && userService.authenticateUserByEmail(email, password)) ||
-                (login != null && userService.authenticateUserByLogin(login, password))) {
+                (username != null && userService.authenticateUserByUsername(username, password))) {
 
             return ResponseEntity.ok("Login successful");
         } else {
@@ -71,6 +71,15 @@ public class UserController {
         return ResponseEntity.ok("User status updated successfully");
     }
 
+    @PutMapping("/update-email/{user-id}")
+    public void updateUserEmail(@PathVariable("user-id") int userId, @RequestBody String newEmail){
+        userService.updateUserEmailById(userId, newEmail);
+    }
+
+    @PutMapping("/update-login/{user-id}")
+    public void updateUsername(@PathVariable("user-id") int userId, @RequestBody String newUsername){
+        userService.updateUsernameById(userId, newUsername);
+    }
 
 
     @DeleteMapping("/delete")
