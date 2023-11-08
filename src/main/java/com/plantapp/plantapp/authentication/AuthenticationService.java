@@ -21,14 +21,17 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
 
-        boolean userExists = userRepository.existsByUserNameOrEmail(request.getUserName(), request.getEmail());
+        boolean userExists = userRepository.existsByEmail(request.getEmail());
 
         if (userExists) {
             return null;
         }
 
         var user = new User();
-        user.setUserName(request.getUserName());
+        String[] emailParts = request.getEmail().split("@");
+        if (emailParts.length > 0) {
+            user.setNickName(emailParts[0]);
+        }
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUserType(UserType.USER);
@@ -45,10 +48,10 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        User user = userRepository.findByUserName(request.getUsername()).orElseThrow();
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
         String jwt = jwtService.generateToken(user);
 

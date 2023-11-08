@@ -34,7 +34,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void updateUser(int userId, String oldPassword, String newPassword, String newEmail, String newUserName, String newPhotoUrl) {
+    public void updateUser(int userId, String oldPassword, String newPassword, String newEmail, String newNickName, String newPhotoUrl) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -49,8 +49,8 @@ public class UserService implements IUserService{
             if (newEmail != null) {
                 user.setEmail(newEmail);
             }
-            if (newUserName != null) {
-                user.setUserName(newUserName);
+            if (newNickName != null) {
+                user.setNickName(newNickName);
             }
             if (newPhotoUrl != null) {
                 user.setPhotoUrl(newPhotoUrl);

@@ -33,14 +33,14 @@ public class UserController {
         String oldPassword =updateRequest.getOldPassword();
         String newPassword = updateRequest.getNewPassword();
         String newEmail = updateRequest.getNewEmail();
-        String newUserName = updateRequest.getNewUserName();
+        String newNickName = updateRequest.getNewNickName();
         String newPhotoUrl = updateRequest.getNewPhotoUrl();
 
-        if (oldPassword == null && newPassword == null && newEmail == null && newUserName == null && newPhotoUrl == null) {
+        if (oldPassword == null && newPassword == null && newEmail == null && newNickName == null && newPhotoUrl == null) {
             return ResponseEntity.badRequest().body("No updates provided.");
         }
 
-        userService.updateUser(userId, oldPassword, newPassword, newEmail, newUserName, newPhotoUrl);
+        userService.updateUser(userId, oldPassword, newPassword, newEmail, newNickName, newPhotoUrl);
         return ResponseEntity.ok("User updated successfully");
     }
 

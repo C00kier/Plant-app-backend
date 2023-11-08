@@ -8,6 +8,6 @@ public class UpdateRequestDTO {
     private String oldPassword;
     private String newPassword;
     private String newEmail;
-    private String newUserName;
+    private String newNickName;
     private String newPhotoUrl;
 }
