@@ -1,6 +1,7 @@
 package com.plantapp.plantapp.quiz.controller;
 
 import com.plantapp.plantapp.quiz.QuizService.QuizService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,13 +15,14 @@ public class QuizController {
     }
 
     @PutMapping("/set-quiz-result")
-    public String getResult(@RequestParam("isToxic") boolean isToxic,
-                            @RequestParam("isSunny") int isSunny,
-                            @RequestParam("isAirPurifying") boolean isAirPurifying,
-                            @RequestParam("matureSize") double matureSize,
-                            @RequestParam("difficulty") int difficulty,
-                            @RequestParam("userId") int userId) {
+    public ResponseEntity<String> getResult(
+            @RequestParam("isToxic") boolean isToxic,
+            @RequestParam("isSunny") int isSunny,
+            @RequestParam("isAirPurifying") boolean isAirPurifying,
+            @RequestParam("matureSize") double matureSize,
+            @RequestParam("difficulty") int difficulty,
+            @RequestBody int userId) {
         quizService.createNewQuizRecord(userId, isToxic, isSunny, isAirPurifying, matureSize, difficulty);
-        return "New quiz result created";
+        return ResponseEntity.ok("New quiz result created");
     }
 }

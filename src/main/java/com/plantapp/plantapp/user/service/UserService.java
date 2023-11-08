@@ -33,16 +33,28 @@ public class UserService implements IUserService{
             userRepository.deleteById(userId);
         }
     }
+
     @Override
-    public void updateUserPasswordById(int userId, String newPassword){
+    public void updateUser(int userId, String newPassword, String newEmail, String newLogin, String newPhotoUrl) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setPassword(newPassword);
+            if (newPassword != null) {
+                user.setPassword(newPassword);
+            }
+            if (newEmail != null) {
+                user.setEmail(newEmail);
+            }
+            if (newLogin != null) {
+                user.setLogin(newLogin);
+            }
+            if (newPhotoUrl != null) {
+                user.setPhotoUrl(newPhotoUrl);
+            }
             userRepository.save(user);
         }
     }
-    @Override
+
     public void updateUserEmailById(int userId, String newEmail){
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()){
@@ -51,6 +63,7 @@ public class UserService implements IUserService{
             userRepository.save(user);
         }
     }
+
     @Override
     public void updateUsernameById(int userId, String newUsername){
         Optional<User> userOptional = userRepository.findById(userId);
@@ -80,4 +93,15 @@ public class UserService implements IUserService{
         Optional<User> user = userRepository.findByUserName(username);
         return user.filter(value -> Objects.equals(value.getPassword(), password)).isPresent();
     }
+
+    @Override
+    public void changeUserStatus(int userId, boolean newStatus) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setActive(newStatus);
+            userRepository.save(user);
+        }
+    }
+
 }

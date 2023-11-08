@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="plants_user")
+@Table(name="users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -41,12 +41,18 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String photoUrl;
 
+
+    public User(String email, String password, String userName){}
+
+    private boolean isActive;
+
     public User(String email, String password, String userName){
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.userType = UserType.USER;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -76,5 +82,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+
+    public User(int userId){
+        this.userId = userId;
+
     }
 }
