@@ -33,9 +33,10 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
-                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/contact/**", "/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/plant").permitAll()
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -45,8 +46,7 @@ public class SecurityConfiguration {
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutSuccessHandler((req, res, auth) -> {res.setStatus(HttpServletResponse.SC_OK);
-                        })
+                        .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
                 );
 
         return httpSecurity.build();
