@@ -14,11 +14,9 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="plants_user")
+@Table(name="users")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @ToString
 @Builder
 public class User implements UserDetails {
@@ -33,7 +31,7 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
-    private String userName;
+    private String nickName;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
@@ -41,11 +39,17 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String photoUrl;
 
-    public User(String email, String password, String userName){
+    private boolean isActive;
+
+    public User(String email, String password, String nickName){
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.nickName = nickName;
         this.userType = UserType.USER;
+    }
+
+    public User(int userId){
+        this.userId = userId;
     }
 
     @Override
@@ -55,9 +59,8 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -27,4 +27,13 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
+    @PostMapping("/authenticate/google")
+    public ResponseEntity<AuthenticationResponse> authenticateGoogle(@RequestBody GoogleAuthenticationRequest request) {
+        AuthenticationResponse authenticationResponse = authenticationService.authenticateGoogle(request);
+        if (authenticationResponse == null) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(null);
+        }
+        return ResponseEntity.ok(authenticationResponse);
+    }
 }
