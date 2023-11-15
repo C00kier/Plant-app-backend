@@ -1,11 +1,6 @@
 package com.plantapp.plantapp.contact.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,5 +18,6 @@ public class ContactMessage {
     private String email;
     private String gender;
     private String message;
+    @Column(length = 3000)
     private String recaptcha;
 }
