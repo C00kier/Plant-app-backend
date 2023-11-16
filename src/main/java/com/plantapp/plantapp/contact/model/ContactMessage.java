@@ -18,6 +18,5 @@ public class ContactMessage {
     private String email;
     private String gender;
     private String message;
-    @Column(length = 3000)
-    private String recaptcha;
+
 }

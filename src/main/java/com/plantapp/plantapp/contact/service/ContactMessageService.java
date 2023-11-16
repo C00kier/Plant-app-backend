@@ -1,6 +1,7 @@
 package com.plantapp.plantapp.contact.service;
 
 import com.plantapp.plantapp.contact.model.ContactMessage;
+import com.plantapp.plantapp.contact.model.ContactRequestDTO;
 import com.plantapp.plantapp.contact.repository.ContactMessageRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,12 @@ public class ContactMessageService implements IContactMessageService {
     }
 
     @Override
-    public ContactMessage addNewContactMessage(ContactMessage contactMessage) {
+    public ContactMessage addNewContactMessage(ContactRequestDTO contactRequest) {
+        ContactMessage contactMessage = new ContactMessage();
+        contactMessage.setFirstName(contactRequest.getFirstName());
+        contactMessage.setEmail(contactRequest.getEmail());
+        contactMessage.setGender(contactRequest.getGender());
+        contactMessage.setMessage(contactRequest.getMessage());
         return contactMessageRepository.save(contactMessage);
     }
 
