@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface IContactMessageService {
     ContactMessage addNewContactMessage(ContactRequestDTO contactRequest);
-
     List<ContactMessage> getAllMessages();
 }
