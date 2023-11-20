@@ -41,11 +41,7 @@ public class User implements UserDetails {
 
     private boolean isActive;
 
-<<<<<<< HEAD
-    public User(String email, String password, String login){
-=======
     public User(String email, String password, String nickName){
->>>>>>> 934dacd1572a60e7ddd848d0a5a61e1ca8377c8d
         this.email = email;
         this.password = password;
         this.nickName = nickName;

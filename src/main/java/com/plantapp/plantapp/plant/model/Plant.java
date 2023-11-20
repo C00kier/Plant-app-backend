@@ -7,12 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-
-@Getter
-@Setter
-
 @Data
-
 @NoArgsConstructor
 public class Plant {
 
@@ -67,33 +62,4 @@ public class Plant {
     @Column(columnDefinition = "text")
     private String pruning;
 
-    public Plant(double matureSize, boolean toxicity, boolean airPurifying, int repotting, int fertilizer, int sun, int water, int careDifficulty, String botanicalName, String commonName, String translation, String plantOverview, String nativeArea, String plantType, String careDescription, String waterExtended, String sunExtended, String temperature, String humidity, String fertilizerExtended, String bloomTime, String repottingExtended, String soilType, String soilPh, String propagating, String pestsAndDiseases, String pruning) {
-        this.matureSize = matureSize;
-        this.toxicity = toxicity;
-        this.airPurifying = airPurifying;
-        this.repotting = repotting;
-        this.fertilizer = fertilizer;
-        this.sun = sun;
-        this.water = water;
-        this.careDifficulty = careDifficulty;
-        this.botanicalName = botanicalName;
-        this.commonName = commonName;
-        this.translation = translation;
-        this.plantOverview = plantOverview;
-        this.nativeArea = nativeArea;
-        this.plantType = plantType;
-        this.careDescription = careDescription;
-        this.waterExtended = waterExtended;
-        this.sunExtended = sunExtended;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.fertilizerExtended = fertilizerExtended;
-        this.bloomTime = bloomTime;
-        this.repottingExtended = repottingExtended;
-        this.soilType = soilType;
-        this.soilPh = soilPh;
-        this.propagating = propagating;
-        this.pestsAndDiseases = pestsAndDiseases;
-        this.pruning = pruning;
-    }
 }

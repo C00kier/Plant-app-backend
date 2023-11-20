@@ -59,7 +59,6 @@ public class PlantService implements IPlantService {
         return  plants.stream().
                 filter(p->p.getSun()==sun&&p.getCommonName().contains(plantName))
                 .toList();
-//        return plants;
     }
 
     @Override
