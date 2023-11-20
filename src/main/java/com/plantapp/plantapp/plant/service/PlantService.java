@@ -55,35 +55,35 @@ public class PlantService implements IPlantService {
     }
 
     @Override
-    public List<Plant> getPlantsBySunIntensity(int sun){
+    public List<Plant> getPlantsBySunIntensity(int sun,String plantName){
         List<Plant> plants = plantRepository.findAll();
         return  plants.stream().
-                filter(p->p.getSun()==sun)
+                filter(p->p.getSun()==sun&&p.getCommonName().contains(plantName))
                 .toList();
 //        return plants;
     }
 
     @Override
-    public List<Plant> getPlantsByDifficulty(int difficulty){
+    public List<Plant> getPlantsByDifficulty(int difficulty,String plantName){
         List<Plant> plants = plantRepository.findAll();
         return plants.stream()
-                .filter(p->p.getCareDifficulty()==difficulty)
+                .filter(p->p.getCareDifficulty()==difficulty&&p.getCommonName().contains(plantName))
                 .toList();
     }
 
     @Override
-    public List<Plant> getAirPuryfyingPlants(){
+    public List<Plant> getAirPuryfyingPlants(String plantName){
         List<Plant> plants = plantRepository.findAll();
         return plants.stream()
-                .filter(p->p.isAirPurifying()==true)
+                .filter(p->p.isAirPurifying()==true&&p.getCommonName().contains(plantName))
                 .toList();
     }
 
     @Override
-    public List<Plant> getNonToxicPlants(){
+    public List<Plant> getNonToxicPlants(String plantName){
         List<Plant> plants = plantRepository.findAll();
         return plants.stream()
-                .filter(p->p.isToxicity()==false)
+                .filter(p->p.isToxicity()==false && p.getCommonName().contains(plantName))
                 .toList();
     }
 }
