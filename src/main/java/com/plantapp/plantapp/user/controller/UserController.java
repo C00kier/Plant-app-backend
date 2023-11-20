@@ -1,6 +1,9 @@
 package com.plantapp.plantapp.user.controller;
 
+<<<<<<< HEAD
 import com.plantapp.plantapp.user.model.LoginRequest;
+=======
+>>>>>>> 934dacd1572a60e7ddd848d0a5a61e1ca8377c8d
 import com.plantapp.plantapp.user.model.UpdateRequestDTO;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.service.UserService;
@@ -16,16 +19,20 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
 
+
     @Autowired
     public UserController(UserService userService){
         this.userService = userService;
     }
 
+<<<<<<< HEAD
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user){
         userService.addUser(user.getEmail(), user.getPassword(), user.getLogin());
     }
 
+=======
+>>>>>>> 934dacd1572a60e7ddd848d0a5a61e1ca8377c8d
     @GetMapping()
     public ResponseEntity<User> getUserById(@RequestBody int userId){
         Optional<User> userOptional = userService.getUserById(userId);
@@ -36,6 +43,7 @@ public class UserController {
     public ResponseEntity<String> updateUser(
              @RequestBody UpdateRequestDTO updateRequest) {
         int userId = updateRequest.getUserId();
+<<<<<<< HEAD
         String newPassword = updateRequest.getNewPassword();
         String newEmail = updateRequest.getNewEmail();
         String newLogin = updateRequest.getNewLogin();
@@ -73,6 +81,31 @@ public class UserController {
 
 
 
+=======
+        String oldPassword =updateRequest.getOldPassword();
+        String newPassword = updateRequest.getNewPassword();
+        String newEmail = updateRequest.getNewEmail();
+        String newNickName = updateRequest.getNewNickName();
+        String newPhotoUrl = updateRequest.getNewPhotoUrl();
+
+        if (oldPassword == null && newPassword == null && newEmail == null && newNickName == null && newPhotoUrl == null) {
+            return ResponseEntity.badRequest().body("No updates provided.");
+        }
+
+        userService.updateUser(userId, oldPassword, newPassword, newEmail, newNickName, newPhotoUrl);
+        return ResponseEntity.ok("User updated successfully");
+    }
+
+    @PutMapping("/change-user-status")
+    public ResponseEntity<String> changeUserStatus(
+           @RequestBody User user,
+            @RequestParam("isActive") boolean isActive) {
+        userService.changeUserStatus(user.getUserId(), isActive);
+        return ResponseEntity.ok("User status updated successfully");
+    }
+
+
+>>>>>>> 934dacd1572a60e7ddd848d0a5a61e1ca8377c8d
     @DeleteMapping("/delete")
     public void deleteUser(@RequestBody int userId){
         userService.deleteUserById(userId);
