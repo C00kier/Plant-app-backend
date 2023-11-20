@@ -75,9 +75,9 @@ public class PlantController {
     }
 
     @GetMapping("/filter/sun/{sun}")
-    public ResponseEntity<List<Plant>> getPlantsBySunIntensity(@PathVariable("sun") int sun, @RequestParam(required = false) String name){
+    public ResponseEntity<List<PlantNameDTO>> getPlantsBySunIntensity(@PathVariable("sun") int sun, @RequestParam(required = false) String name){
         try{
-            List<Plant> plants = plantService.getPlantsBySunIntensity(sun,name);
+            List<PlantNameDTO> plants = plantService.getPlantsBySunIntensity(sun,name);
             return ResponseEntity.ok(plants);
         }catch(Exception error){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -85,9 +85,9 @@ public class PlantController {
     }
 
     @GetMapping("/filter/difficulty/{difficulty}")
-    public ResponseEntity<List<Plant>> getPlantsByDifficulty(@PathVariable("difficulty") int difficulty,@RequestParam(required = false) String name){
+    public ResponseEntity<List<PlantNameDTO>> getPlantsByDifficulty(@PathVariable("difficulty") int difficulty,@RequestParam(required = false) String name){
         try{
-            List<Plant> plants = plantService.getPlantsByDifficulty(difficulty,name);
+            List<PlantNameDTO> plants = plantService.getPlantsByDifficulty(difficulty,name);
             return ResponseEntity.ok(plants);
         }catch(Exception error){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -95,9 +95,9 @@ public class PlantController {
     }
 
     @GetMapping("/filter/airpuryfying")
-    public ResponseEntity<List<Plant>> getAirPuryfyingPlants(@RequestParam(required = false) String name){
+    public ResponseEntity<List<PlantNameDTO>> getAirPuryfyingPlants(@RequestParam(required = false) String name){
         try{
-            List<Plant> plants = plantService.getAirPuryfyingPlants(name);
+            List<PlantNameDTO> plants = plantService.getAirPurifyingPlants(name);
             return ResponseEntity.ok(plants);
         }catch(Exception error){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -105,9 +105,9 @@ public class PlantController {
     }
 
     @GetMapping("/filter/nontoxic")
-    public ResponseEntity<List<Plant>> getNonToxicPlants(@RequestParam(required = false) String name){
+    public ResponseEntity<List<PlantNameDTO>> getNonToxicPlants(@RequestParam(required = false) String name){
         try{
-            List<Plant> plants = plantService.getNonToxicPlants(name);
+            List<PlantNameDTO> plants = plantService.getNonToxicPlants(name);
             return ResponseEntity.ok(plants);
         }catch(Exception error){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
