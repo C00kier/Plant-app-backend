@@ -11,11 +11,8 @@ public interface IUserService {
 
     void deleteUserById(int userId);
 
-    void updateUser(int userId, String newPassword, String newEmail, String newLogin, String newPhotoUrl);
-
-    boolean authenticateUserByEmail(String email, String password);
-
-    boolean authenticateUserByLogin(String email, String password);
+    void updateUser(int userId, String oldPassword, String newPassword, String newEmail, String newLogin, String newPhotoUrl);
 
     void changeUserStatus(int userId, boolean newStatus);
+
 }
