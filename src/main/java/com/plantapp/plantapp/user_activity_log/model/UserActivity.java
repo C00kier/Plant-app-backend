@@ -7,12 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class UserActivityLog {
+public class UserActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

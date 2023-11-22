@@ -1,6 +1,5 @@
 package com.plantapp.plantapp.user_plant.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.plant.model.Plant;
 import jakarta.persistence.*;
@@ -36,25 +35,17 @@ public class UserPlant {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
-    @JsonProperty("user_id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "plant_id", referencedColumnName = "plantId")
     private Plant plant;
-
     private String room;
-
     private String alias;
-    @JsonProperty("last_water")
     private Date lastWater;
-    @JsonProperty("last_fertilizer")
     private Date lastFertilizer;
-    @JsonProperty("last_propagated")
     private Date lastPropagated;
-    @JsonProperty("last_pruned")
     private Date lastPruned;
-    @JsonProperty("last_repotted")
     private Date lastRepotted;
 
     private final LocalDate added = LocalDate.now();

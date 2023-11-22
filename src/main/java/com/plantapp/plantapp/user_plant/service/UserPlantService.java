@@ -4,12 +4,13 @@ import com.plantapp.plantapp.plant.repository.PlantRepository;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_activity_log.model.ActivityType;
-import com.plantapp.plantapp.user_activity_log.service.UserActivityLogService;
+import com.plantapp.plantapp.user_activity_log.service.UserActivityService;
 import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import com.plantapp.plantapp.user_plant.repository.UserPlantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,12 +23,12 @@ public class UserPlantService implements IUserPlantService {
     private final UserRepository userRepository;
     private final PlantRepository plantRepository;
     private final UserGameProgressService userGameProgressService;
-    private final UserActivityLogService userActivityService;
+    private final UserActivityService userActivityService;
 
 
 
     @Autowired
-    public UserPlantService(UserPlantsRepository userPlantsRepository, UserRepository userRepository, PlantRepository plantRepository, UserGameProgressService userGameProgressService, UserActivityLogService userActivityService) {
+    public UserPlantService(UserPlantsRepository userPlantsRepository, UserRepository userRepository, PlantRepository plantRepository, UserGameProgressService userGameProgressService, UserActivityService userActivityService) {
         this.userPlantsRepository = userPlantsRepository;
         this.userRepository = userRepository;
         this.plantRepository = plantRepository;
@@ -54,10 +55,12 @@ public class UserPlantService implements IUserPlantService {
         }
 
     @Override
+    @Transactional
     public void removePlantFromUserPlantsById(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantsRepository.findById(userPlantId);
         if (optionalUserPlant.isPresent()) {
             UserPlant userPlant = optionalUserPlant.get();
+            userActivityService.deleteUserActivitiesByUserPlant(userPlant);
             userPlantsRepository.delete(userPlant);
         }
     }

@@ -1,14 +1,11 @@
 package com.plantapp.plantapp.user_activity_log.contoller;
 
-import com.plantapp.plantapp.user_activity_log.model.UserActivityLog;
-import com.plantapp.plantapp.user_activity_log.service.UserActivityLogService;
-import com.plantapp.plantapp.user_plant.model.UserPlant;
+import com.plantapp.plantapp.user_activity_log.model.UserActivity;
+import com.plantapp.plantapp.user_activity_log.service.UserActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -17,15 +14,16 @@ import java.util.List;
 @RequestMapping("/user-activity-log")
 public class UserActivityController {
 
-    private final UserActivityLogService userActivityLogService;
-@Autowired
-    public UserActivityController(UserActivityLogService userActivityLogService) {
-        this.userActivityLogService = userActivityLogService;
+    private final UserActivityService userActivityService;
+
+    @Autowired
+    public UserActivityController(UserActivityService userActivityService) {
+        this.userActivityService = userActivityService;
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<UserActivityLog>> getAllUsersActivityLog(){
-    List<UserActivityLog> userActivityLogs = userActivityLogService.getAllUsersLogActivity();
-    return ResponseEntity.ok(userActivityLogs);
+    public ResponseEntity<List<UserActivity>> getAllUsersActivityLog(){
+    List<UserActivity> userActivities = userActivityService.getAllUsersLogActivity();
+    return ResponseEntity.ok(userActivities);
     }
 }

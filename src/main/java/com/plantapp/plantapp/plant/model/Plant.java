@@ -1,7 +1,5 @@
 package com.plantapp.plantapp.plant.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Plant {
+
+    public Plant(int plantId) {
+        this.plantId = plantId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
