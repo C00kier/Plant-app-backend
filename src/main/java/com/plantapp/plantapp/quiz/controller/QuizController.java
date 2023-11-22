@@ -1,8 +1,12 @@
 package com.plantapp.plantapp.quiz.controller;
 
 import com.plantapp.plantapp.quiz.QuizService.QuizService;
+import com.plantapp.plantapp.quiz.model.Quiz;
+import com.plantapp.plantapp.user.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/quiz")
@@ -24,5 +28,11 @@ public class QuizController {
             @RequestParam("userId") int userId) {
         quizService.createNewQuizRecord(userId, isToxic, isSunny, isAirPurifying, matureSize, difficulty);
         return ResponseEntity.ok("New quiz result created");
+    }
+
+    @GetMapping("/get-quiz-result")
+    public ResponseEntity<Quiz> getUserQuiz(@RequestParam("userId") int userId){
+        Quiz quiz = quizService.getQuizByUserId(userId);
+        return ResponseEntity.ok(quiz);
     }
 }

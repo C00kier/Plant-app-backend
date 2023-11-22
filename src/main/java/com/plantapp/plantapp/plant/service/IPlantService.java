@@ -23,4 +23,5 @@ public interface IPlantService {
     List<PlantNameDTO> getPlantsByDifficulty(int difficulty,String plantName);
     List<PlantNameDTO> getAirPurifyingPlants(String plantName);
     List<PlantNameDTO> getNonToxicPlants(String plantName);
+    List<PlantNameDTO> getPlantsByQuizAnswers(boolean isToxic, int sun, boolean isAirPurifying, double matureSize, int careDifficulty);
 }
