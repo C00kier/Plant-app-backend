@@ -97,4 +97,14 @@ public class PlantService implements IPlantService {
                 .toList();
         return plantDTOMapper.getShorterPlant(plants);
     }
+
+    @Override
+    public List<PlantNameDTO> getPlantsByQuizAnswers(boolean isToxic, int sun, boolean isAirPurifying, double matureSize, int careDifficulty){
+        List<Plant> plants = plantRepository.findAll();
+        plants = plants.stream()
+                .filter(p->p.isToxicity()==isToxic && p.getSun()==sun && p.isAirPurifying()==isAirPurifying
+                && p.getMatureSize()==matureSize && p.getCareDifficulty()==careDifficulty)
+                .toList();
+        return plantDTOMapper.getShorterPlant(plants);
+    }
 }

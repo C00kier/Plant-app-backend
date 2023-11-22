@@ -39,8 +39,8 @@ public class PlantController {
 
     @DeleteMapping("/delete/{plant-id}")
     public ResponseEntity<Object> deletePlantById(@PathVariable("plant-id") int plantId) {
-            plantService.deletePlantById(plantId);
-           return ResponseEntity.ok().build();
+        plantService.deletePlantById(plantId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{plant-id}")
@@ -75,41 +75,55 @@ public class PlantController {
     }
 
     @GetMapping("/filter/sun/{sun}")
-    public ResponseEntity<List<PlantNameDTO>> getPlantsBySunIntensity(@PathVariable("sun") int sun, @RequestParam(required = false) String name){
-        try{
-            List<PlantNameDTO> plants = plantService.getPlantsBySunIntensity(sun,name);
+    public ResponseEntity<List<PlantNameDTO>> getPlantsBySunIntensity(@PathVariable("sun") int sun, @RequestParam(required = false) String name) {
+        try {
+            List<PlantNameDTO> plants = plantService.getPlantsBySunIntensity(sun, name);
             return ResponseEntity.ok(plants);
-        }catch(Exception error){
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/filter/difficulty/{difficulty}")
-    public ResponseEntity<List<PlantNameDTO>> getPlantsByDifficulty(@PathVariable("difficulty") int difficulty,@RequestParam(required = false) String name){
-        try{
-            List<PlantNameDTO> plants = plantService.getPlantsByDifficulty(difficulty,name);
+    public ResponseEntity<List<PlantNameDTO>> getPlantsByDifficulty(@PathVariable("difficulty") int difficulty, @RequestParam(required = false) String name) {
+        try {
+            List<PlantNameDTO> plants = plantService.getPlantsByDifficulty(difficulty, name);
             return ResponseEntity.ok(plants);
-        }catch(Exception error){
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/filter/airpuryfying")
-    public ResponseEntity<List<PlantNameDTO>> getAirPuryfyingPlants(@RequestParam(required = false) String name){
-        try{
+    public ResponseEntity<List<PlantNameDTO>> getAirPuryfyingPlants(@RequestParam(required = false) String name) {
+        try {
             List<PlantNameDTO> plants = plantService.getAirPurifyingPlants(name);
             return ResponseEntity.ok(plants);
-        }catch(Exception error){
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/filter/nontoxic")
-    public ResponseEntity<List<PlantNameDTO>> getNonToxicPlants(@RequestParam(required = false) String name){
-        try{
+    public ResponseEntity<List<PlantNameDTO>> getNonToxicPlants(@RequestParam(required = false) String name) {
+        try {
             List<PlantNameDTO> plants = plantService.getNonToxicPlants(name);
             return ResponseEntity.ok(plants);
-        }catch(Exception error){
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/filter/plants-by-quiz")
+    public ResponseEntity<List<PlantNameDTO>> getPlantsByQuizAnswers(@RequestParam("isToxic") boolean isToxic,
+                                                                     @RequestParam("sun") int sun,
+                                                                     @RequestParam("isAirPurifying") boolean isAirPurifying,
+                                                                     @RequestParam("matureSize") double matureSize,
+                                                                     @RequestParam("careDifficulty") int careDifficulty) {
+        try {
+            List<PlantNameDTO> plants = plantService.getPlantsByQuizAnswers(isToxic, sun, isAirPurifying, matureSize, careDifficulty);
+            return ResponseEntity.ok(plants);
+        } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
