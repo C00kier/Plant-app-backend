@@ -38,6 +38,14 @@ public class PlantService implements IPlantService {
     }
 
     @Override
+    public List<Plant> getFullPlantsByName(String plantName){
+        String likeExpression = "%" + plantName.toLowerCase() + "%";
+        return plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(likeExpression);
+    }
+
+
+
+    @Override
     public Plant addNewPlant(Plant plant) {
         return plantRepository.save(plant);
     }
@@ -51,5 +59,42 @@ public class PlantService implements IPlantService {
     public Plant changePlantById(int plantId, Plant plant) {
         plant.setId(plantId);
         return plantRepository.save(plant);
+    }
+
+    @Override
+    public List<PlantNameDTO> getPlantsBySunIntensity(int sun,String plantName){
+        List<Plant> plants = getFullPlantsByName(plantName);
+        plants= plants.stream().
+                filter(p->p.getSun()==sun&&p.getCommonName().contains(plantName))
+                .toList();
+        return plantDTOMapper.getShorterPlant(plants);
+    }
+
+    @Override
+    public List<PlantNameDTO> getPlantsByDifficulty(int difficulty,String plantName){
+        List<Plant> plants = getFullPlantsByName(plantName);
+        plants = plants.stream()
+                .filter(p->p.getCareDifficulty()==difficulty&&p.getCommonName().contains(plantName))
+                .toList();
+        return plantDTOMapper.getShorterPlant(plants);
+    }
+
+    @Override
+    public List<PlantNameDTO> getAirPurifyingPlants(String plantName){
+        List<Plant> plants = getFullPlantsByName(plantName);
+
+        plants= plants.stream()
+                .filter(p->p.isAirPurifying()==true&&p.getCommonName().contains(plantName))
+                .toList();
+        return plantDTOMapper.getShorterPlant(plants);
+    }
+
+    @Override
+    public List<PlantNameDTO> getNonToxicPlants(String plantName){
+        List<Plant> plants = getFullPlantsByName(plantName);
+        plants= plants.stream()
+                .filter(p->p.isToxicity()==false && p.getCommonName().contains(plantName))
+                .toList();
+        return plantDTOMapper.getShorterPlant(plants);
     }
 }

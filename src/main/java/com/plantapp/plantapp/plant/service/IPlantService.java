@@ -12,10 +12,15 @@ public interface IPlantService {
     Optional<Plant> getPlantById(int plantId);
 
     List<PlantNameDTO> getPlantsByName(String plantName);
+    List<Plant> getFullPlantsByName(String plantName);
 
     Plant addNewPlant(Plant plant);
 
     void deletePlantById(int plantId);
 
     Plant changePlantById(int plantId, Plant plant);
+    List<PlantNameDTO> getPlantsBySunIntensity(int sun,String plantName);
+    List<PlantNameDTO> getPlantsByDifficulty(int difficulty,String plantName);
+    List<PlantNameDTO> getAirPurifyingPlants(String plantName);
+    List<PlantNameDTO> getNonToxicPlants(String plantName);
 }

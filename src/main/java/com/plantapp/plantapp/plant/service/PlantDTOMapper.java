@@ -14,7 +14,7 @@ public class PlantDTOMapper implements IPlantDTOMapper {
     public List<PlantNameDTO> getShorterPlant(List<Plant> plants) {
         return  plants.stream()
                             .filter(plant -> "PL".equals(plant.getTranslation()))
-                            .map(plant -> new PlantNameDTO(plant.getId(), plant.getBotanicalName()))
+                            .map(plant -> new PlantNameDTO(plant.getId(), plant.getBotanicalName(),plant.getPicture()))
                             .collect(Collectors.toList());
     }
     @Override
