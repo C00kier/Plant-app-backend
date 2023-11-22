@@ -5,6 +5,7 @@ import com.plantapp.plantapp.user.model.User;
 import java.util.Optional;
 
 public interface IUserService {
+    void addUser(String email, String password, String login);
 
     Optional<User> getUserById(int userId);
 
