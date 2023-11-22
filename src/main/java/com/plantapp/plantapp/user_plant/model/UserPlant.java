@@ -1,19 +1,19 @@
 package com.plantapp.plantapp.user_plant.model;
 
-import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.user.model.User;
+import com.plantapp.plantapp.plant.model.Plant;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_plants")
 public class UserPlant {
 
@@ -38,21 +38,14 @@ public class UserPlant {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "plant_id", referencedColumnName = "id")
+    @JoinColumn(name = "plant_id", referencedColumnName = "plantId")
     private Plant plant;
-
     private String room;
-
     private String alias;
-
     private Date lastWater;
-
     private Date lastFertilizer;
-
     private Date lastPropagated;
-
     private Date lastPruned;
-
     private Date lastRepotted;
 
     private final LocalDate added = LocalDate.now();

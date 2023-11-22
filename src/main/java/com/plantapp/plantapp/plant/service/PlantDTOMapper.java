@@ -14,14 +14,14 @@ public class PlantDTOMapper implements IPlantDTOMapper {
     public List<PlantNameDTO> getShorterPlant(List<Plant> plants) {
         return  plants.stream()
                             .filter(plant -> "PL".equals(plant.getTranslation()))
-                            .map(plant -> new PlantNameDTO(plant.getId(), plant.getBotanicalName(),plant.getPicture()))
+                            .map(plant -> new PlantNameDTO(plant.getPlantId(), plant.getBotanicalName(),plant.getPicture()))
                             .collect(Collectors.toList());
     }
     @Override
     public List<PlantRecommendationDTO> getRecommendationShortFromPlants(List<Plant> plants) {
         return  plants.stream()
                 .filter(plant -> "PL".equals(plant.getTranslation()))
-                .map(plant -> new PlantRecommendationDTO(plant.getId(), plant.getBotanicalName(),
+                .map(plant -> new PlantRecommendationDTO(plant.getPlantId(), plant.getBotanicalName(),
                         plant.getSun(), plant.getMatureSize(), plant.getCareDifficulty(),
                         plant.isAirPurifying(), plant.isToxicity()))
                 .collect(Collectors.toList());

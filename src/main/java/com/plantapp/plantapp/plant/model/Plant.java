@@ -1,19 +1,23 @@
 package com.plantapp.plantapp.plant.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Plant {
+
+    public Plant(int plantId) {
+        this.plantId = plantId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int plantId;
     private String picture;
     private double matureSize;
     private boolean toxicity;
@@ -61,5 +65,4 @@ public class Plant {
     private String pestsAndDiseases;
     @Column(columnDefinition = "text")
     private String pruning;
-
 }
