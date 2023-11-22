@@ -39,7 +39,6 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String photoUrl;
 
-    private boolean isActive;
 
     public User(String email, String password, String nickName){
         this.email = email;

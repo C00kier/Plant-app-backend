@@ -1,6 +1,7 @@
 package com.plantapp.plantapp.user.service;
 
 import com.plantapp.plantapp.user.model.User;
+import com.plantapp.plantapp.user.model.UserDTO;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,18 @@ public class UserService implements IUserService{
     @Override
     public Optional<User> getUserById(int userId){
          return userRepository.findById(userId);
+    }
+
+    @Override
+    public UserDTO getUserObjectById(int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.map(user -> new UserDTO(
+                user.getUserId(),
+                user.getEmail(),
+                user.getNickName(),
+                user.getPhotoUrl(),
+                user.getUserType())).orElse(null);
+
     }
 
     @Override
@@ -59,14 +72,5 @@ public class UserService implements IUserService{
         }
     }
 
-    @Override
-    public void changeUserStatus(int userId, boolean newStatus) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            user.setActive(newStatus);
-            userRepository.save(user);
-        }
-    }
 
 }

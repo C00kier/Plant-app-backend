@@ -50,7 +50,6 @@ public class AuthenticationService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUserType(UserType.USER);
-        user.setActive(true);
         userRepository.save(user);
 
         String jwt = jwtService.generateToken(user);
@@ -91,7 +90,7 @@ public class AuthenticationService {
             user.setEmail(googleUserInfo.getEmail());
             user.setPassword(googleUserInfo.getGoogleId());
             user.setPhotoUrl(googleUserInfo.getPhotoUrl());
-            user.setActive(true);
+            user.setUserType(UserType.GOOGLE_USER);
             String[] emailParts = googleUserInfo.getEmail().split("@");
             if (emailParts.length > 0) {
                 user.setNickName(emailParts[0]);

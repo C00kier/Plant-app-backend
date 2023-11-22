@@ -2,12 +2,12 @@ package com.plantapp.plantapp.user.controller;
 
 import com.plantapp.plantapp.user.model.UpdateRequestDTO;
 import com.plantapp.plantapp.user.model.User;
+import com.plantapp.plantapp.user.model.UserDTO;
 import com.plantapp.plantapp.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -20,10 +20,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
-    public ResponseEntity<User> getUserById(@RequestBody int userId){
-        Optional<User> userOptional = userService.getUserById(userId);
-        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping()
+    public ResponseEntity<UserDTO> getUserById(@RequestBody User user){
+        UserDTO userDTO = userService.getUserObjectById(user.getUserId());
+        return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping("/update")
@@ -44,17 +44,9 @@ public class UserController {
         return ResponseEntity.ok("User updated successfully");
     }
 
-    @PutMapping("/change-user-status")
-    public ResponseEntity<String> changeUserStatus(
-           @RequestBody User user,
-            @RequestParam("isActive") boolean isActive) {
-        userService.changeUserStatus(user.getUserId(), isActive);
-        return ResponseEntity.ok("User status updated successfully");
-    }
-
 
     @DeleteMapping("/delete")
-    public void deleteUser(@RequestBody int userId){
-        userService.deleteUserById(userId);
+    public void deleteUser(@RequestBody User user){
+        userService.deleteUserById(user.getUserId());
     }
 }
