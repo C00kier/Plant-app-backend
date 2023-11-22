@@ -21,7 +21,7 @@ public class QuizController {
             @RequestParam("isAirPurifying") boolean isAirPurifying,
             @RequestParam("matureSize") double matureSize,
             @RequestParam("difficulty") int difficulty,
-            @RequestBody int userId) {
+            @RequestParam("userId") int userId) {
         quizService.createNewQuizRecord(userId, isToxic, isSunny, isAirPurifying, matureSize, difficulty);
         return ResponseEntity.ok("New quiz result created");
     }
