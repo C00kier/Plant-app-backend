@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserActivityLogService implements IUserActivityService {
@@ -38,4 +39,12 @@ public class UserActivityLogService implements IUserActivityService {
     public List<UserActivityLog> getAllUsersLogActivity() {
         return userActivityRepository.findAll();
     }
+
+    @Override
+    public void removePlantActivity(int userPlantId) {
+       Optional<UserActivityLog> activityLog =  userActivityRepository.findByUserPlantId(userPlantId);
+       userActivityRepository.delete(activityLog);
+    }
+
+
 }

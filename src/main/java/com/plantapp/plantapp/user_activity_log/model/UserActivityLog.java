@@ -1,6 +1,5 @@
 package com.plantapp.plantapp.user_activity_log.model;
 
-import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import jakarta.persistence.*;

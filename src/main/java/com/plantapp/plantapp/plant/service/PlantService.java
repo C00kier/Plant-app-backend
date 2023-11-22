@@ -57,7 +57,7 @@ public class PlantService implements IPlantService {
 
     @Override
     public Plant changePlantById(int plantId, Plant plant) {
-        plant.setId(plantId);
+        plant.setPlantId(plantId);
         return plantRepository.save(plant);
     }
 

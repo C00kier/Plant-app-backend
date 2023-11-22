@@ -9,4 +9,7 @@ import java.util.Optional;
 @Repository
 public interface UserActivityRepository extends JpaRepository<UserActivityLog, Integer> {
     Optional<UserActivityLog> findByUser(User user);
+    Optional<UserActivityLog> findByUserPlantId(int userPlantId);
+
+    void delete(Optional<UserActivityLog> activityLog);
 }

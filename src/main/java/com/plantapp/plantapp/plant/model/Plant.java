@@ -1,19 +1,21 @@
 package com.plantapp.plantapp.plant.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Plant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int plantId;
     private String picture;
     private double matureSize;
     private boolean toxicity;
@@ -61,5 +63,4 @@ public class Plant {
     private String pestsAndDiseases;
     @Column(columnDefinition = "text")
     private String pruning;
-
 }

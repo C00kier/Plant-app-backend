@@ -11,4 +11,5 @@ public interface IUserActivityService {
 
     void addPlantActivity(User user, UserPlant userPlant, ActivityType activityType);
     List<UserActivityLog> getAllUsersLogActivity();
+    void removePlantActivity(int userPlantId);
 }
