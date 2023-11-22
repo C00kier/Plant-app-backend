@@ -38,7 +38,7 @@ public class UserPlant {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "plant_id", referencedColumnName = "id")
+    @JoinColumn(name = "plant_id", referencedColumnName = "Id")
     private Plant plant;
 
     private String room;

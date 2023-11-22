@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                         authorizeHttpRequests
                                 .requestMatchers("/contact/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/user-plant/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
