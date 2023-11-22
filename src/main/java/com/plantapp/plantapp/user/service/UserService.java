@@ -22,6 +22,11 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public void addUser(String email, String password, String login) {
+        userRepository.save(new User(email, password, login));
+    }
+
+    @Override
     public Optional<User> getUserById(int userId){
          return userRepository.findById(userId);
     }
