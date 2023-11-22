@@ -17,4 +17,6 @@ public interface IUserPlantService {
     void updateLastPropagateByUserPlantId(int userPlantId);
     void updateLastRepotByUserPlantId(int userPlantId);
     void updateLastFertilizerByUserPlantId(int userPlantId);
+
+    void updateLastPrunedByUserPlantId(int userPlantId);
 }

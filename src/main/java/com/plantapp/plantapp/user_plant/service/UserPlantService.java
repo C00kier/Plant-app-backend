@@ -116,4 +116,14 @@ public class UserPlantService implements IUserPlantService {
             userPlantsRepository.save(userPlant);
         }
     }
+
+    @Override
+    public void updateLastPrunedByUserPlantId(int userPlantId) {
+        Optional<UserPlant> optionalUserPlant = userPlantsRepository.findById(userPlantId);
+        if(optionalUserPlant.isPresent()){
+            UserPlant userPlant = optionalUserPlant.get();
+            userPlant.setLastPruned(new Date());
+            userPlantsRepository.save(userPlant);
+        }
+    }
 }

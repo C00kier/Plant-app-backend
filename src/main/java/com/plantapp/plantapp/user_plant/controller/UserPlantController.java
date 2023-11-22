@@ -67,4 +67,8 @@ public class UserPlantController {
     public void updateLastFertilized(@PathVariable("user-plant-id") int userPlantId){
         userPlantsService.updateLastFertilizerByUserPlantId(userPlantId);
     }
+    @PatchMapping("/{user-plant-id}/last-pruned")
+    public void updateLastPruned(@PathVariable("user-plant-id") int userPlantId){
+        userPlantsService.updateLastPrunedByUserPlantId(userPlantId);
+    }
 }
