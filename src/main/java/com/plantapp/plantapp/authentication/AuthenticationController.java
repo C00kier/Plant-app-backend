@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.register(request);
@@ -31,7 +32,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate/google")
     public ResponseEntity<AuthenticationResponse> authenticateGoogle(@RequestBody GoogleAuthenticationRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.authenticateGoogle(request);
-        if (authenticationResponse == null) {
+            if (authenticationResponse == null) {
             return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(null);
         }
         return ResponseEntity.ok(authenticationResponse);

@@ -2,21 +2,20 @@ package com.plantapp.plantapp.user_plant.service;
 
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
 public interface IUserPlantService {
     List<UserPlant> getUserPlantsByUserId(int userId);
-    void addPlantToUserPlantsById(UserPlant userPlant);
+    void addPlantToUserPlants(UserPlant userPlant);
 
     void removePlantFromUserPlantsById(int userPlantId);
     void updateUserPlantRoomById(int userPlantId, String roomName);
     void updateUserPlantAliasById(int userPlantId, String alias);
-    void updateLastWateringByUserPlantId(int userPlantId);
-    void updateLastPropagateByUserPlantId(int userPlantId);
-    void updateLastRepotByUserPlantId(int userPlantId);
-    void updateLastFertilizerByUserPlantId(int userPlantId);
+    void updateLastWateredByUserPlantId(int userPlantId, Date date);
+    void updateLastPropagatedByUserPlantId(int userPlantId, Date date);
+    void updateLastRepottedByUserPlantId(int userPlantId, Date date);
+    void updateLastFertilizedByUserPlantId(int userPlantId, Date date);
 
-    void updateLastPrunedByUserPlantId(int userPlantId);
+    void updateLastPrunedByUserPlantId(int userPlantId, Date date);
 }

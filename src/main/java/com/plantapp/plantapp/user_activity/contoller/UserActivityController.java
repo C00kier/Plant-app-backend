@@ -1,7 +1,7 @@
-package com.plantapp.plantapp.user_activity_log.contoller;
+package com.plantapp.plantapp.user_activity.contoller;
 
-import com.plantapp.plantapp.user_activity_log.model.UserActivity;
-import com.plantapp.plantapp.user_activity_log.service.UserActivityService;
+import com.plantapp.plantapp.user_activity.model.UserActivity;
+import com.plantapp.plantapp.user_activity.service.UserActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
