@@ -4,6 +4,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.plantapp.plantapp.configuration.JwtService;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.repository.UserRepository;
+import com.plantapp.plantapp.user_game_progress.model.UserGameProgress;
+import com.plantapp.plantapp.user_game_progress.repository.UserGameProgressRepository;
 import com.plantapp.plantapp.user_type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +32,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserGameProgressRepository userGameProgressRepository;
 
     @Value("${google_client_id}")
     private String CLIENT_ID;
@@ -53,6 +56,9 @@ public class AuthenticationService {
         userRepository.save(user);
 
         String jwt = jwtService.generateToken(user);
+        Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
+
+        optionalUser.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
 
         return AuthenticationResponse.builder()
                 .token(jwt)
@@ -97,6 +103,10 @@ public class AuthenticationService {
             }
             userRepository.save(user);
         }
+
+        Optional<User> optionalUser = userRepository.findByEmail(googleUserInfo.getEmail());
+
+        optionalUser.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
 
         String jwt = jwtService.generateToken(user);
 
