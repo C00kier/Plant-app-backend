@@ -34,6 +34,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/contact/**").permitAll()
+                                .requestMatchers("/blog/**").permitAll()
+                                .requestMatchers("/post/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/user-plant/**").permitAll()
                                 .requestMatchers("/quiz/**").permitAll()

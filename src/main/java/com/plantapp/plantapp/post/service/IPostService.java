@@ -13,4 +13,6 @@ public interface IPostService {
     Post addNewPost(Post post);
 
     void deletePostById(int postId);
+
+    List<Post> getAllTitlesAndLeads();
 }
