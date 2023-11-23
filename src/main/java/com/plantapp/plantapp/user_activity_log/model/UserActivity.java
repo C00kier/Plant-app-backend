@@ -28,4 +28,5 @@ public class UserActivity {
 
     @Enumerated(EnumType.STRING)
     private ActivityType activityType;
+    private String timing;
 }
