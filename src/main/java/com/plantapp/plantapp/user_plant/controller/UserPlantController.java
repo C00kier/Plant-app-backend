@@ -1,12 +1,13 @@
 package com.plantapp.plantapp.user_plant.controller;
 
+import com.plantapp.plantapp.user_activity.model.ActivityType;
+import com.plantapp.plantapp.user_activity.service.UserActivityService;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import com.plantapp.plantapp.user_plant.service.UserPlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,12 @@ import java.util.List;
 public class UserPlantController {
     private final UserPlantService userPlantsService;
 
+    private final UserActivityService userActivityService;
+
     @Autowired
-    public UserPlantController(UserPlantService userPlantsService) {
+    public UserPlantController(UserPlantService userPlantsService, UserActivityService userActivityService) {
         this.userPlantsService = userPlantsService;
+        this.userActivityService = userActivityService;
     }
 
     @GetMapping("/{user-id}")
@@ -27,48 +31,65 @@ public class UserPlantController {
     }
 
     @PostMapping("/add")
-    public void addPlantToUserPlantsById(
-            @RequestBody UserPlant userPlant){
-        userPlantsService.addPlantToUserPlantsById(userPlant);
+    public void addPlantToUserPlants(
+            @RequestBody UserPlant userPlant) {
+        userPlantsService.addPlantToUserPlants(userPlant);
+        userActivityService.addPlantActivity(userPlant.getUserPlantId(), ActivityType.ADDING_PLANT);
     }
 
     @DeleteMapping("/{user-plant-id}")
-    public void removePlantFromUserPlantsById(@PathVariable("user-plant-id") int userPlantId){
+        public void removePlantFromUserPlantsById(@PathVariable("user-plant-id") int userPlantId) {
+        userActivityService.deleteUserActivitiesByUserPlantId(userPlantId);
         userPlantsService.removePlantFromUserPlantsById(userPlantId);
+
     }
 
     @PatchMapping("/{user-plant-id}/room")
     public void updateUserPlantRoom(
             @PathVariable("user-plant-id") int userPlantId,
-            @RequestParam String roomName){
+            @RequestParam String roomName) {
         userPlantsService.updateUserPlantRoomById(userPlantId, roomName);
     }
 
     @PatchMapping("/{user-plant-id}/alias")
     public void updateUserPlantAlias(
             @PathVariable("user-plant-id") int userPlantId,
-            @RequestParam String alias){
+            @RequestParam String alias) {
         userPlantsService.updateUserPlantAliasById(userPlantId, alias);
     }
 
     @PatchMapping("/{user-plant-id}/last-watering")
-    public void updateLastWatering(@PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.updateLastWateringByUserPlantId(userPlantId);
+    public void updateLastWatering(@PathVariable("user-plant-id") int userPlantId,
+                                   @RequestParam Date date) {
+        userPlantsService.updateLastWateredByUserPlantId(userPlantId, date);
     }
+
     @PatchMapping("/{user-plant-id}/last-propagated")
-    public void updateLastPropagated(@PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.updateLastPropagateByUserPlantId(userPlantId);
+    public void updateLastPropagated(@PathVariable("user-plant-id") int userPlantId,
+                                     @RequestParam Date date) {
+        userPlantsService.updateLastPropagatedByUserPlantId(userPlantId, date);
+        userActivityService.addPlantActivity(userPlantId, ActivityType.PROPAGATING_PLANT);
+
     }
+
     @PatchMapping("/{user-plant-id}/last-repotted")
-    public void updateLastRepotted(@PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.updateLastRepotByUserPlantId(userPlantId);
+    public void updateLastRepotted(@PathVariable("user-plant-id") int userPlantId,
+                                   @RequestParam Date date) {
+        userPlantsService.updateLastRepottedByUserPlantId(userPlantId, date);
+        userActivityService.addPlantActivity(userPlantId, ActivityType.REPOTTING_PLANT);
     }
+
     @PatchMapping("/{user-plant-id}/last-fertilized")
-    public void updateLastFertilized(@PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.updateLastFertilizerByUserPlantId(userPlantId);
+    public void updateLastFertilized(@PathVariable("user-plant-id") int userPlantId,
+                                     @RequestParam Date date) {
+        userPlantsService.updateLastFertilizedByUserPlantId(userPlantId, date);
+        userActivityService.addPlantActivity(userPlantId, ActivityType.FERTILIZING_PLANT);
     }
+
     @PatchMapping("/{user-plant-id}/last-pruned")
-    public void updateLastPruned(@PathVariable("user-plant-id") int userPlantId){
-        userPlantsService.updateLastPrunedByUserPlantId(userPlantId);
+    public void updateLastPruned(@PathVariable("user-plant-id") int userPlantId,
+                                 @RequestParam Date date) {
+        userPlantsService.updateLastPrunedByUserPlantId(userPlantId, date);
+        userActivityService.addPlantActivity(userPlantId, ActivityType.PRUNING_PLANT);
     }
 }
