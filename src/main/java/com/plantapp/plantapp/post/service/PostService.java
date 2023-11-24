@@ -17,6 +17,10 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<Post> getAllTitlesAndLeads() {
+        return postRepository.findAll();
+    }
+    @Override
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }

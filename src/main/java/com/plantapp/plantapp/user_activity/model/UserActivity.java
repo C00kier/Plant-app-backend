@@ -1,4 +1,4 @@
-package com.plantapp.plantapp.user_activity_log.model;
+package com.plantapp.plantapp.user_activity.model;
 
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user_plant.model.UserPlant;

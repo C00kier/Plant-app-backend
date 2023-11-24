@@ -17,18 +17,6 @@ import java.util.Date;
 @Table(name = "user_plants")
 public class UserPlant {
 
-    public UserPlant(User user, Plant plant, String room, String alias, Date lastWater, Date lastFertilizer, Date lastPropagated, Date lastPruned, Date lastRepotted) {
-        this.user = user;
-        this.plant = plant;
-        this.room = room;
-        this.alias = alias;
-        this.lastWater = lastWater;
-        this.lastFertilizer = lastFertilizer;
-        this.lastPropagated = lastPropagated;
-        this.lastPruned = lastPruned;
-        this.lastRepotted = lastRepotted;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userPlantId;
@@ -42,8 +30,8 @@ public class UserPlant {
     private Plant plant;
     private String room;
     private String alias;
-    private Date lastWater;
-    private Date lastFertilizer;
+    private Date lastWatered;
+    private Date lastFertilized;
     private Date lastPropagated;
     private Date lastPruned;
     private Date lastRepotted;
