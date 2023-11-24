@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserActivityService implements IUserActivityService {
@@ -45,6 +46,17 @@ public class UserActivityService implements IUserActivityService {
 @Override
     public void deleteUserActivitiesByUserPlant(UserPlant userPlant) {
         userActivityRepository.deleteByUserPlant(userPlant);
+    }
+
+    @Override
+    public boolean areAllUserActivitiesOnTime(User user, ActivityType activityType) {
+        Optional<List<UserActivity>> userActivitiesOptional = userActivityRepository.findByUserAndActivityType(user, activityType);
+        if(userActivitiesOptional.isPresent()){
+            List<UserActivity> userActivities = userActivitiesOptional.get();
+            return userActivities.stream()
+                    .allMatch(activity -> "on-time".equals(activity.getTiming()));
+        }
+            return false;
     }
 
     private String calculateTiming(Plant plant, ActivityType activityType) {

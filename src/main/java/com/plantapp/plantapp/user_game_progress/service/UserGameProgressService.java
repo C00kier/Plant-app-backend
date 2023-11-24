@@ -61,5 +61,16 @@ public class UserGameProgressService implements IUserGameProgressService{
         return 0;
     }
 
+    @Override
+    public int awardForWeeklyWatering(int userId, int exp) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isPresent()){
+            Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
+            int userExperience = optionalUserGameProgress.get().getExperience();
+            return userExperience + 15;
+        }
+        return 0;
+    }
+
 
 }

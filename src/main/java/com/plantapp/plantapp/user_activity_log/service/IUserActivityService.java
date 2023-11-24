@@ -13,4 +13,5 @@ public interface IUserActivityService {
     List<UserActivity> getAllUsersLogActivity();
 
     void deleteUserActivitiesByUserPlant(UserPlant userPlant);
+    boolean areAllUserActivitiesOnTime(User user, ActivityType activityType);
 }

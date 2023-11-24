@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 @Repository
 public interface UserActivityRepository extends JpaRepository<UserActivity, Integer> {
@@ -27,4 +28,6 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Inte
             @Param("activityType") ActivityType activityType,
             @Param("currentDate") LocalDate currentDate
     );
+
+    Optional<List<UserActivity>> findByUserAndActivityType(User user, ActivityType activityType);
 }
