@@ -2,8 +2,8 @@ package com.plantapp.plantapp.user_game_progress.controller;
 
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.repository.UserRepository;
-import com.plantapp.plantapp.user_activity_log.model.ActivityType;
-import com.plantapp.plantapp.user_activity_log.service.UserActivityService;
+import com.plantapp.plantapp.user_activity.model.ActivityType;
+import com.plantapp.plantapp.user_activity.service.UserActivityService;
 import com.plantapp.plantapp.user_game_progress.model.UserProgressRequestDTO;
 import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
 
@@ -51,7 +51,7 @@ public class UserGameProgressController {
         int userId = userProgressRequestDTO.getUserId();
         User user = userRepository.findById(userId).orElse(null);
         if(userActivityService.areAllUserActivitiesOnTime(user, ActivityType.WATERING_PLANT)){
-            userGameProgressService.awardForWeeklyWatering(userProgressRequestDTO.getUserId(), userProgressRequestDTO.getExp());
+            userGameProgressService.updateUserExperienceByUserId(userProgressRequestDTO.getUserId(), userProgressRequestDTO.getExp());
         }
     }
 }

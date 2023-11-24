@@ -63,23 +63,14 @@ public class UserGameProgressService implements IUserGameProgressService {
         if (optionalUser.isPresent()) {
             Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
             if (optionalUserGameProgress.isPresent()) {
-                int userExperience = optionalUserGameProgress.get().getExperience();
-                return userExperience + exp;
+                UserGameProgress userGameProgress = optionalUserGameProgress.get();
+                int userExperience = userGameProgress.getExperience();
+                int updatedExperience = userExperience + exp;
+                userGameProgress.setExperience(updatedExperience);
+                userGameProgressRepository.save(userGameProgress);
+                return updatedExperience;
             }
         }
         return 0;
     }
-
-    @Override
-    public int awardForWeeklyWatering(int userId, int exp) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if(optionalUser.isPresent()){
-            Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
-            int userExperience = optionalUserGameProgress.get().getExperience();
-            return userExperience + 15;
-        }
-        return 0;
-    }
-
-
 }

@@ -24,7 +24,7 @@ public class UserActivity {
     @JoinColumn(name = "user_plant_id", referencedColumnName = "userPlantId")
     private UserPlant userPlant;
 
-    private final LocalDate ACTIVITY_DATE = LocalDate.now();
+    private final LocalDate activityDate = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
     private ActivityType activityType;

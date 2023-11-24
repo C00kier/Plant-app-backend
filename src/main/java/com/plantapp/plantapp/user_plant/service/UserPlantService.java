@@ -19,21 +19,12 @@ import java.util.Optional;
 public class UserPlantService implements IUserPlantService {
     private final UserPlantRepository userPlantRepository;
     private final UserRepository userRepository;
-    private final PlantRepository plantRepository;
-    private final UserGameProgressService userGameProgressService;
-
-
-
 
     @Autowired
     public UserPlantService(UserPlantRepository userPlantRepository, UserRepository userRepository, PlantRepository plantRepository, UserGameProgressService userGameProgressService) {
         this.userPlantRepository = userPlantRepository;
         this.userRepository = userRepository;
-        this.plantRepository = plantRepository;
-        this.userGameProgressService = userGameProgressService;
-
     }
-
     @Override
     public List<UserPlant> getUserPlantsByUserId(int userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -42,16 +33,12 @@ public class UserPlantService implements IUserPlantService {
             User user = optionalUser.get();
             userPlants.addAll(userPlantRepository.findAllByUser(user));
         }
-
         return userPlants;
     }
-
     @Override
     public void addPlantToUserPlants(UserPlant userPlant) {
             userPlantRepository.save(userPlant);
-
         }
-
     @Override
     @Transactional
     public void removePlantFromUserPlantsById(int userPlantId) {
@@ -61,7 +48,6 @@ public class UserPlantService implements IUserPlantService {
             userPlantRepository.delete(userPlant);
         }
     }
-
     @Override
     public void updateUserPlantRoomById(int userPlantId, String roomName){
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
@@ -71,7 +57,6 @@ public class UserPlantService implements IUserPlantService {
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
     public void updateUserPlantAliasById(int userPlantId, String alias) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
@@ -81,55 +66,54 @@ public class UserPlantService implements IUserPlantService {
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
-    public void updateLastWateredByUserPlantId(int userPlantId, Date date) {
+    public void updateLastWateredByUserPlantId(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
+            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastWatered(date);
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
-    public void updateLastPropagatedByUserPlantId(int userPlantId, Date date) {
+    public void updateLastPropagatedByUserPlantId(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
+            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastPropagated(date);
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
-    public void updateLastRepottedByUserPlantId(int userPlantId, Date date) {
+    public void updateLastRepottedByUserPlantId(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
+            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastRepotted(date);
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
-    public void updateLastFertilizedByUserPlantId(int userPlantId, Date date) {
+    public void updateLastFertilizedByUserPlantId(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
+            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastFertilized(date);
             userPlantRepository.save(userPlant);
         }
     }
-
     @Override
-    public void updateLastPrunedByUserPlantId(int userPlantId, Date date) {
+    public void updateLastPrunedByUserPlantId(int userPlantId) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
+            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastPruned(date);
             userPlantRepository.save(userPlant);
         }
     }
-
 }
