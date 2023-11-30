@@ -21,7 +21,7 @@ public class UserPlantService implements IUserPlantService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserPlantService(UserPlantRepository userPlantRepository, UserRepository userRepository, PlantRepository plantRepository, UserGameProgressService userGameProgressService) {
+    public UserPlantService(UserPlantRepository userPlantRepository, UserRepository userRepository) {
         this.userPlantRepository = userPlantRepository;
         this.userRepository = userRepository;
     }

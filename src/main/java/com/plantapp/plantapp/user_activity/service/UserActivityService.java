@@ -2,12 +2,10 @@ package com.plantapp.plantapp.user_activity.service;
 
 
 import com.plantapp.plantapp.plant.model.Plant;
-import com.plantapp.plantapp.plant.repository.PlantRepository;
 import com.plantapp.plantapp.user.model.User;
-import com.plantapp.plantapp.user_activity.repository.UserActivityRepository
-import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_activity.model.ActivityType;
 import com.plantapp.plantapp.user_activity.model.UserActivity;
+import com.plantapp.plantapp.user_activity.repository.UserActivityRepository;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import com.plantapp.plantapp.user_plant.repository.UserPlantRepository;
 import jakarta.transaction.Transactional;
@@ -18,13 +16,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Service
 public class UserActivityService implements IUserActivityService {
     private final UserActivityRepository userActivityRepository;
     private final UserPlantRepository userPlantRepository;
 
     @Autowired
-    public UserActivityService(UserActivityRepository userActivityRepository, UserPlantRepository userPlantRepository, UserRepository userRepository, PlantRepository plantRepository) {
+    public UserActivityService(UserActivityRepository userActivityRepository, UserPlantRepository userPlantRepository) {
         this.userActivityRepository = userActivityRepository;
         this.userPlantRepository = userPlantRepository;
     }
@@ -59,10 +59,10 @@ public class UserActivityService implements IUserActivityService {
     }
 
     @Override
-    public boolean areAllUserActivitiesOnTime(User user, ActivityType activityType) {
-        LocalDate sixDaysAgo = LocalDate.now().minusDays(6);
+    public boolean areAllUserActivitiesOnTime(User user, ActivityType activityType, long daysToCheck) {
+        LocalDate daysAgo = LocalDate.now().minusDays(daysToCheck);
         Optional<List<UserActivity>> userActivitiesOptional = userActivityRepository
-                .findByUserAndActivityTypeAndActivityDateAfter(user, activityType, sixDaysAgo);
+                .findByUserAndActivityTypeAndActivityDateAfter(user, activityType, daysAgo);
         if(userActivitiesOptional.isPresent()){
             List<UserActivity> userActivities = userActivitiesOptional.get();
             return userActivities.stream()
@@ -76,26 +76,26 @@ public class UserActivityService implements IUserActivityService {
         LocalDate previousLogDate = userActivityRepository.findPreviousLogDate(plant, activityType, today);
 
         if (previousLogDate != null) {
-            long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(previousLogDate, today);
+            long daysBetween = DAYS.between(previousLogDate, today);
 
             switch (activityType) {
                 case WATERING_PLANT:
                     int waterInterval = plant.getWater();
-                    if (daysBetween == waterInterval) {
+                    if (daysBetween >= waterInterval - 1 && daysBetween <= waterInterval + 1) {
                         return "on-time";
                     } else if (daysBetween > waterInterval){
                         return "delay";
                     }
                 case FERTILIZING_PLANT:
                     int fertilizerInterval = plant.getFertilizer() * 30;
-                    if (daysBetween <= fertilizerInterval) {
+                    if (daysBetween >= fertilizerInterval - 3 && daysBetween <= fertilizerInterval + 3) {
                         return "on-time";
                     } else {
                         return "delay";
                     }
                 case REPOTTING_PLANT:
                     int repottingInterval = getRepottingInterval(plant);
-                    if (daysBetween <= repottingInterval) {
+                    if (daysBetween >= repottingInterval - 5 && daysBetween <= repottingInterval + 5) {
                         return "on-time";
                     } else {
                         return "delay";
