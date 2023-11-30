@@ -65,9 +65,21 @@ public class UserGameProgressController {
     @PatchMapping("/update-exp")
     public void updateUserExperienceByUserId(@RequestBody UserProgressRequestDTO userProgressRequestDTO) {
         userGameProgressService.updateUserExperienceByUserId(userProgressRequestDTO.getUserId(), userProgressRequestDTO.getExp());
+        userGameProgressService.updateUserGameTitleByUserId(userProgressRequestDTO.getUserId());
     }
-    @PatchMapping("/award-for-watering")
-    public void awardForWateringWeekly(@RequestBody UserProgressRequestDTO userProgressRequestDTO){
+
+    @PatchMapping("/award-for-weekly-watering")
+    public void awardForWeeklyWatering(@RequestBody UserProgressRequestDTO userProgressRequestDTO) {
+        int userId = userProgressRequestDTO.getUserId();
+        User user = userRepository.findById(userId).orElse(null);
+        if (userActivityService.areAllUserActivitiesOnTime(user, ActivityType.WATERING_PLANT, 7)) {
+            userGameProgressService.updateUserExperienceByUserId(userProgressRequestDTO.getUserId(), userProgressRequestDTO.getExp());
+            userGameProgressService.updateUserGameTitleByUserId(userProgressRequestDTO.getUserId());
+        }
+    }
+
+    @PatchMapping("/award-for-monthly-fertilizing")
+    public void awardForMonthlyFertilizing(@RequestBody UserProgressRequestDTO userProgressRequestDTO) {
         int userId = userProgressRequestDTO.getUserId();
         User user = userRepository.findById(userId).orElse(null);
         if (userActivityService.areAllUserActivitiesOnTime(user, ActivityType.FERTILIZING_PLANT, 32)) {

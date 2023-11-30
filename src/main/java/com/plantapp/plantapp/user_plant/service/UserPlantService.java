@@ -1,9 +1,7 @@
 package com.plantapp.plantapp.user_plant.service;
 
-import com.plantapp.plantapp.plant.repository.PlantRepository;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.repository.UserRepository;
-import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import com.plantapp.plantapp.user_plant.repository.UserPlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
