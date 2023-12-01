@@ -1,6 +1,6 @@
 package com.plantapp.plantapp.user_game_progress.model;
 
-public enum GameProgressTitle {
+public enum UserGameTitle {
 
     POCZĄTKUJĄCY_ZIELONOSKÓRNIK(0,14),
     NOWICJUSZ_ROŚLINNY(15,35),
@@ -11,14 +11,19 @@ public enum GameProgressTitle {
     ZIELONY_ARCYMISTRZ(210,259),
     KRÓL_ZIEONYCH_DŻUNGLI(260,314),
     OGRODNIK_WSZECHCZASÓW(315,374),
-    ROŚLINNY_GENIUSZ(375,10000)
-    ;
+    ROŚLINNY_GENIUSZ(375,10000);
 
     private final int MIN_EXPERIENCE;
     private final int MAX_EXPERIENCE;
 
-    GameProgressTitle(int MIN_EXPERIENCE, int MAX_EXPERIENCE) {
+    UserGameTitle(int MIN_EXPERIENCE, int MAX_EXPERIENCE) {
         this.MIN_EXPERIENCE = MIN_EXPERIENCE;
         this.MAX_EXPERIENCE = MAX_EXPERIENCE;
+    }
+    public int getMIN_EXPERIENCE() {
+        return MIN_EXPERIENCE;
+    }
+    public int getMAX_EXPERIENCE() {
+        return MAX_EXPERIENCE;
     }
 }

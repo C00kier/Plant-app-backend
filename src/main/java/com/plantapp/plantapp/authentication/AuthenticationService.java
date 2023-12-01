@@ -98,15 +98,14 @@ public class AuthenticationService {
             user.setPhotoUrl(googleUserInfo.getPhotoUrl());
             user.setUserType(UserType.GOOGLE_USER);
             String[] emailParts = googleUserInfo.getEmail().split("@");
+            Optional<User> optionalUser = userRepository.findByEmail(googleUserInfo.getEmail());
+            optionalUser.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
             if (emailParts.length > 0) {
                 user.setNickName(emailParts[0]);
             }
             userRepository.save(user);
         }
 
-        Optional<User> optionalUser = userRepository.findByEmail(googleUserInfo.getEmail());
-
-        optionalUser.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
 
         String jwt = jwtService.generateToken(user);
 
