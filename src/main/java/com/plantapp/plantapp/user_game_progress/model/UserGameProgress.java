@@ -18,6 +18,9 @@ public class UserGameProgress {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private UserGameTitle GAME_TITLE = UserGameTitle.POCZĄTKUJĄCY_ZIELONOSKÓRNIK;
+
 public UserGameProgress(int experience, User user){
     this.experience = experience;
     this.user = user;
