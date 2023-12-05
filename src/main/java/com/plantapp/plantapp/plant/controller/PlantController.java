@@ -47,6 +47,7 @@ public class PlantController {
     public ResponseEntity<Plant> changePlantById(@PathVariable("plant-id") int plantId, @RequestBody Plant plant) {
         try {
             Plant changedPlant = plantService.changePlantById(plantId, plant);
+
             return ResponseEntity.ok(changedPlant);
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
