@@ -7,7 +7,10 @@ import com.plantapp.plantapp.user_plant.service.UserPlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user-plant")
@@ -58,9 +61,11 @@ public class UserPlantController {
 
     @PatchMapping("/{user-plant-id}/last-watering")
     public void updateLastWatering(
-            @PathVariable("user-plant-id") int userPlantId
-    ){
-        userPlantsService.updateLastWateredByUserPlantId(userPlantId);
+            @PathVariable("user-plant-id") int userPlantId,
+            @RequestBody Map<String, Date> requestBody
+            ){
+        Date date = requestBody.get("date");
+        userPlantsService.updateLastWateredByUserPlantId(userPlantId,date);
         userActivityService.addPlantActivity(userPlantId, ActivityType.WATERING_PLANT);
     }
 
@@ -71,14 +76,18 @@ public class UserPlantController {
     }
 
     @PatchMapping("/{user-plant-id}/last-repotted")
-    public void updateLastRepotted(@PathVariable("user-plant-id") int userPlantId) {
-        userPlantsService.updateLastRepottedByUserPlantId(userPlantId);
+    public void updateLastRepotted(@PathVariable("user-plant-id") int userPlantId,
+                                   @RequestBody Map<String, Date> requestBody) {
+        Date date = requestBody.get("date");
+        userPlantsService.updateLastRepottedByUserPlantId(userPlantId,date);
         userActivityService.addPlantActivity(userPlantId, ActivityType.REPOTTING_PLANT);
     }
 
     @PatchMapping("/{user-plant-id}/last-fertilized")
-    public void updateLastFertilized(@PathVariable("user-plant-id") int userPlantId) {
-        userPlantsService.updateLastFertilizedByUserPlantId(userPlantId);
+    public void updateLastFertilized(@PathVariable("user-plant-id") int userPlantId,
+                                     @RequestBody Map<String, Date> requestBody) {
+        Date date = requestBody.get("date");
+        userPlantsService.updateLastFertilizedByUserPlantId(userPlantId, date);
         userActivityService.addPlantActivity(userPlantId, ActivityType.FERTILIZING_PLANT);
     }
 
