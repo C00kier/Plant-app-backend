@@ -48,6 +48,17 @@ public class UserPlantService implements IUserPlantService {
     }
 
     @Override
+    @Transactional
+    public void removeAllUserPlants(int userId) {
+        Optional<User> user = userRepository.findById(userId);
+        user.ifPresent(value -> {
+            List<UserPlant> userPlants = getUserPlantsByUserId(userId);
+            userPlantRepository.deleteAll(userPlants);
+        });
+    }
+
+
+    @Override
     public void removeRoomFromPlantById(int userPlantId){
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if (optionalUserPlant.isPresent()) {

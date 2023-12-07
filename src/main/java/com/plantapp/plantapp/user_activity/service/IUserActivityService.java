@@ -12,5 +12,7 @@ public interface IUserActivityService {
     List<UserActivity> getAllUsersLogActivity();
 
     void deleteUserActivitiesByUserPlantId(int userPlantId);
+
+    void deleteUserActivitiesByUserId(int userId);
     boolean areAllUserActivitiesOnTime(User user, ActivityType activityType, long daysToCheck);
 }

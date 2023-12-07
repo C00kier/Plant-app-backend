@@ -19,6 +19,8 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Inte
     Optional<UserActivity> findByUser(User user);
     void deleteByUserPlant(UserPlant userPlant);
 
+    void deleteUserActivitiesByUser(User user);
+
     @Query("SELECT MAX(ua.activityDate) FROM UserActivity ua " +
             "WHERE ua.userPlant.plant = :plant " +
             "AND ua.activityType = :activityType " +

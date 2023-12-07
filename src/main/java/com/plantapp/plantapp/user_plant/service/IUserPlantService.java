@@ -11,6 +11,8 @@ public interface IUserPlantService {
 
     void removePlantFromUserPlantsById(int userPlantId);
 
+    void removeAllUserPlants(int userId);
+
     void removeRoomFromPlantById(int userPlantId);
     void updateUserPlantRoomById(int userPlantId, String roomName);
     void updateUserPlantAliasById(int userPlantId, String alias);

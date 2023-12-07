@@ -3,6 +3,7 @@ package com.plantapp.plantapp.user_activity.service;
 
 import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.user.model.User;
+import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_activity.model.ActivityType;
 import com.plantapp.plantapp.user_activity.model.UserActivity;
 import com.plantapp.plantapp.user_activity.repository.UserActivityRepository;
@@ -23,10 +24,13 @@ public class UserActivityService implements IUserActivityService {
     private final UserActivityRepository userActivityRepository;
     private final UserPlantRepository userPlantRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public UserActivityService(UserActivityRepository userActivityRepository, UserPlantRepository userPlantRepository) {
+    public UserActivityService(UserActivityRepository userActivityRepository, UserPlantRepository userPlantRepository,UserRepository userRepository) {
         this.userActivityRepository = userActivityRepository;
         this.userPlantRepository = userPlantRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -55,6 +59,15 @@ public class UserActivityService implements IUserActivityService {
         if (optionalUserPlant.isPresent()) {
             UserPlant userPlant = optionalUserPlant.get();
             userActivityRepository.deleteByUserPlant(userPlant);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserActivitiesByUserId(int userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            userActivityRepository.deleteUserActivitiesByUser(user.get());
         }
     }
 
