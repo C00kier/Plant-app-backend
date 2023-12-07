@@ -107,7 +107,6 @@ public class AuthenticationService {
         }
 
 
-
         String jwt = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()

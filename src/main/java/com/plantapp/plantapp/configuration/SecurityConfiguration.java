@@ -34,8 +34,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/contact/**").permitAll()
+                                .requestMatchers("/blog/**").permitAll()
+                                .requestMatchers("/post/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/user-plant/**").permitAll()
+                                .requestMatchers("/user-game-progress/**").permitAll()
                                 .requestMatchers("/quiz/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()

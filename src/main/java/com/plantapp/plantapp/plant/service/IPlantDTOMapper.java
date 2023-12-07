@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface IPlantDTOMapper {
     List<PlantNameDTO> getShorterPlant(List<Plant> plants);
-    List<PlantRecommendationDTO> getRecommendationShortFromPlants(List<Plant> plants);
 }
