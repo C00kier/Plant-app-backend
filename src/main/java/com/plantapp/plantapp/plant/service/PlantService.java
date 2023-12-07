@@ -50,8 +50,13 @@ public class PlantService implements IPlantService {
 
     @Override
     public List<Plant> getFullPlantsByName(String plantName) {
-        String likeExpression = "%" + plantName.toLowerCase() + "%";
-        return plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(likeExpression);
+        String likeExpression = plantName.toLowerCase();
+
+        List<Plant> plants = plantRepository.findAll();
+        List<Plant> filteredPlants = plants.stream()
+                .filter(p -> p.getBotanicalName().toLowerCase().startsWith(likeExpression))
+                .collect(Collectors.toList());
+        return filteredPlants;
     }
 
 
@@ -92,6 +97,7 @@ public class PlantService implements IPlantService {
     @Override
     public List<PlantNameDTO> getAirPurifyingPlants(String plantName) {
         List<Plant> plants = getFullPlantsByName(plantName);
+        System.out.println(plants.toString());
 
         plants = plants.stream()
                 .filter(p -> p.isAirPurifying() == true && p.getCommonName().contains(plantName))
