@@ -2,6 +2,7 @@ package com.plantapp.plantapp.user_plant.controller;
 
 import com.plantapp.plantapp.user_activity.model.ActivityType;
 import com.plantapp.plantapp.user_activity.service.UserActivityService;
+import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
 import com.plantapp.plantapp.user_plant.service.UserPlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,13 @@ public class UserPlantController {
 
     private final UserActivityService userActivityService;
 
+    private final UserGameProgressService userGameProgressService;
+
     @Autowired
-    public UserPlantController(UserPlantService userPlantsService, UserActivityService userActivityService) {
+    public UserPlantController(UserPlantService userPlantsService, UserActivityService userActivityService, UserGameProgressService userGameProgressService) {
         this.userPlantsService = userPlantsService;
         this.userActivityService = userActivityService;
+        this.userGameProgressService= userGameProgressService;
     }
 
     @GetMapping("/{user-id}")
@@ -36,6 +40,7 @@ public class UserPlantController {
             @RequestBody UserPlant userPlant) {
         userPlantsService.addPlantToUserPlants(userPlant);
         userActivityService.addPlantActivity(userPlant.getUserPlantId(), ActivityType.ADDING_PLANT);
+        userGameProgressService.updateUserExperienceByUserId(userPlant.getUser().getUserId(), 5);
     }
 
     @DeleteMapping("/{user-plant-id}")

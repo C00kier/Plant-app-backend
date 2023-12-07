@@ -9,7 +9,6 @@ import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user-game-progress")
 public class UserGameProgressController {
