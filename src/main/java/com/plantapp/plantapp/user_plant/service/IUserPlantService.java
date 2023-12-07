@@ -10,6 +10,8 @@ public interface IUserPlantService {
     void addPlantToUserPlants(UserPlant userPlant);
 
     void removePlantFromUserPlantsById(int userPlantId);
+
+    void removeRoomFromPlantById(int userPlantId);
     void updateUserPlantRoomById(int userPlantId, String roomName);
     void updateUserPlantAliasById(int userPlantId, String alias);
     void updateLastWateredByUserPlantId(int userPlantId, Date date);

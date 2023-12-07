@@ -46,6 +46,18 @@ public class UserPlantService implements IUserPlantService {
             userPlantRepository.delete(userPlant);
         }
     }
+
+    @Override
+    public void removeRoomFromPlantById(int userPlantId){
+        Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
+        if (optionalUserPlant.isPresent()) {
+            UserPlant userPlant = optionalUserPlant.get();
+            userPlant.setRoom(null);
+            userPlantRepository.save(userPlant);
+        }
+    }
+
+
     @Override
     public void updateUserPlantRoomById(int userPlantId, String roomName){
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);

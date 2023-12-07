@@ -45,6 +45,13 @@ public class UserPlantController {
 
     }
 
+    @PatchMapping("/{user-plant-id}/room/remove")
+    public void removeRoomFromPlant(
+            @PathVariable("user-plant-id") int userPlantId
+    ){
+        userPlantsService.removeRoomFromPlantById(userPlantId);
+    }
+
     @PatchMapping("/{user-plant-id}/room")
     public void updateUserPlantRoom(
             @PathVariable("user-plant-id") int userPlantId,
