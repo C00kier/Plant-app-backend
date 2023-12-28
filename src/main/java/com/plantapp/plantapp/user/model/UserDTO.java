@@ -1,6 +1,5 @@
 package com.plantapp.plantapp.user.model;
 
-import com.plantapp.plantapp.user_type.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

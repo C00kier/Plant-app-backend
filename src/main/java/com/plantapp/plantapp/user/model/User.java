@@ -1,6 +1,5 @@
 package com.plantapp.plantapp.user.model;
 
-import com.plantapp.plantapp.user_type.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
