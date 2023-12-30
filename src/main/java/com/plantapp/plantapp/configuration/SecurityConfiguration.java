@@ -42,7 +42,8 @@ public class SecurityConfiguration {
                                 .requestMatchers("/quiz/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user-activity-log/**").permitAll()
+                                .requestMatchers("/admin/**", "/plant/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
