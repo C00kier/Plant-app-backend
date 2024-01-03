@@ -97,10 +97,9 @@ public class UserPlantService implements IUserPlantService {
         }
     }
     @Override
-    public void updateLastPropagatedByUserPlantId(int userPlantId) {
+    public void updateLastPropagatedByUserPlantId(int userPlantId, Date date) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
-            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastPropagated(date);
             userPlantRepository.save(userPlant);
@@ -125,10 +124,9 @@ public class UserPlantService implements IUserPlantService {
         }
     }
     @Override
-    public void updateLastPrunedByUserPlantId(int userPlantId) {
+    public void updateLastPrunedByUserPlantId(int userPlantId, Date date) {
         Optional<UserPlant> optionalUserPlant = userPlantRepository.findById(userPlantId);
         if(optionalUserPlant.isPresent()){
-            Date date = new Date();
             UserPlant userPlant = optionalUserPlant.get();
             userPlant.setLastPruned(date);
             userPlantRepository.save(userPlant);
