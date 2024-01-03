@@ -6,7 +6,7 @@ import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_game_progress.model.UserGameProgress;
 import com.plantapp.plantapp.user_game_progress.repository.UserGameProgressRepository;
-import com.plantapp.plantapp.user_type.UserType;
+import com.plantapp.plantapp.user.model.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -33,13 +33,7 @@ public class PlantService implements IPlantService {
     @Override
     @Transactional
     public List<PlantNameDTO> getPlantsByName(String plantName) {
-//        String likeExpression = "%" + plantName.toLowerCase() + "%";
-//        String likeExpression = plantName.toLowerCase() + "%";
-//        List<Plant> plants = plantRepository.findByBotanicalNameIgnoreCaseOrCommonNameIgnoreCase(likeExpression);
-//        List<Plant> plants = plantRepository.findAll();
-//        plants.stream().filter(p->p.getBotanicalName().contains(likeExpression));
         String likeExpression = plantName.toLowerCase();
-
         List<Plant> plants = plantRepository.findAll();
         List<Plant> filteredPlants = plants.stream()
                 .filter(p -> p.getBotanicalName().toLowerCase().startsWith(likeExpression))
@@ -53,10 +47,9 @@ public class PlantService implements IPlantService {
         String likeExpression = plantName.toLowerCase();
 
         List<Plant> plants = plantRepository.findAll();
-        List<Plant> filteredPlants = plants.stream()
+        return plants.stream()
                 .filter(p -> p.getBotanicalName().toLowerCase().startsWith(likeExpression))
                 .collect(Collectors.toList());
-        return filteredPlants;
     }
 
 
@@ -100,7 +93,7 @@ public class PlantService implements IPlantService {
         System.out.println(plants.toString());
 
         plants = plants.stream()
-                .filter(p -> p.isAirPurifying() == true && p.getCommonName().contains(plantName))
+                .filter(p -> p.isAirPurifying() && p.getCommonName().contains(plantName))
                 .toList();
         return plantDTOMapper.getShorterPlant(plants);
     }
@@ -109,7 +102,7 @@ public class PlantService implements IPlantService {
     public List<PlantNameDTO> getNonToxicPlants(String plantName) {
         List<Plant> plants = getFullPlantsByName(plantName);
         plants = plants.stream()
-                .filter(p -> p.isToxicity() == false && p.getCommonName().contains(plantName))
+                .filter(p -> !p.isToxicity() && p.getCommonName().contains(plantName))
                 .toList();
         return plantDTOMapper.getShorterPlant(plants);
     }

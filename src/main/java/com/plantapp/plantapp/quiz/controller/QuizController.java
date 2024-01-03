@@ -2,11 +2,9 @@ package com.plantapp.plantapp.quiz.controller;
 
 import com.plantapp.plantapp.quiz.QuizService.QuizService;
 import com.plantapp.plantapp.quiz.model.Quiz;
-import com.plantapp.plantapp.user.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/quiz")

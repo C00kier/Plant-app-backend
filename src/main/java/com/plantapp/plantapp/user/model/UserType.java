@@ -1,4 +1,4 @@
-package com.plantapp.plantapp.user_type;
+package com.plantapp.plantapp.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

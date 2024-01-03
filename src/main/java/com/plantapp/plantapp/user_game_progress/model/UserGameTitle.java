@@ -1,9 +1,12 @@
 package com.plantapp.plantapp.user_game_progress.model;
 
+import lombok.Getter;
+
+@Getter
 public enum UserGameTitle {
 
     POCZĄTKUJĄCY_ZIELONOSKÓRNIK(0,14),
-    NOWICJUSZ_ROŚLINNY(15,35),
+    NOWICJUSZ_ROŚLINNY(15,34),
     LISCIOPIEŃ(35, 59),
     ŚREDNIOZAAWANSOWANY_OGRODNIK(60,89),
     MISTRZ_ZIELONEGO_KCIUKA(90,124),
@@ -19,11 +22,5 @@ public enum UserGameTitle {
     UserGameTitle(int MIN_EXPERIENCE, int MAX_EXPERIENCE) {
         this.MIN_EXPERIENCE = MIN_EXPERIENCE;
         this.MAX_EXPERIENCE = MAX_EXPERIENCE;
-    }
-    public int getMIN_EXPERIENCE() {
-        return MIN_EXPERIENCE;
-    }
-    public int getMAX_EXPERIENCE() {
-        return MAX_EXPERIENCE;
     }
 }

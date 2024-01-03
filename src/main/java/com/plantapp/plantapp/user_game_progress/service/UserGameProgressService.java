@@ -29,11 +29,6 @@ public class UserGameProgressService implements IUserGameProgressService {
         user.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
     }
 
-    @Override
-    public void postUserExperienceByUserId(int userId, int exp) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> userGameProgressRepository.save(new UserGameProgress(exp, user)));
-    }
 
     @Override
     public int getUserExperienceByUserId(int userId) {
@@ -72,10 +67,12 @@ public class UserGameProgressService implements IUserGameProgressService {
 
     @Override
     public int updateUserExperienceByUserId(int userId, int exp) {
+
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
             if (optionalUserGameProgress.isPresent()) {
+                updateUserGameTitleByUserId(userId);
                 UserGameProgress userGameProgress = optionalUserGameProgress.get();
                 int userExperience = userGameProgress.getExperience();
                 int updatedExperience = userExperience + exp;
@@ -84,6 +81,7 @@ public class UserGameProgressService implements IUserGameProgressService {
                 return updatedExperience;
             }
         }
+
         return 0;
     }
 
@@ -91,13 +89,17 @@ public class UserGameProgressService implements IUserGameProgressService {
     public UserGameTitle updateUserGameTitleByUserId(int userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
+            System.out.println("Usertest");
             Optional<UserGameProgress> optionalUserGameProgress = userGameProgressRepository.findByUser(optionalUser.get());
             if (optionalUserGameProgress.isPresent()) {
                 UserGameProgress userGameProgress = optionalUserGameProgress.get();
                 int userExperience = userGameProgress.getExperience();
                 UserGameTitle userGameTitle = findGameProgressTitleByExperience(userExperience);
+                System.out.println("Enum:"+userGameTitle.name());
+
                 userGameProgress.setGAME_TITLE(userGameTitle);
                 userGameProgressRepository.save(userGameProgress);
+                System.out.println("User"+optionalUser.get());
                 return userGameTitle;
             }
         }
@@ -116,8 +118,7 @@ public class UserGameProgressService implements IUserGameProgressService {
     public int calculatePointLeftToNextLvl(int userExperience) {
         for (UserGameTitle title : UserGameTitle.values()){
             if( userExperience >= title.getMIN_EXPERIENCE() && userExperience <= title.getMAX_EXPERIENCE()){
-                int differance = title.getMAX_EXPERIENCE()-userExperience;
-                return differance;
+                return title.getMAX_EXPERIENCE()-userExperience +1;
             }
         }
         return 0;
