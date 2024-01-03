@@ -40,7 +40,6 @@ class PlantControllerIntegrationTest {
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void addNewPlant() throws Exception {
         Plant testPlant = new Plant();
-        testPlant.setPicture("testUrl");
         testPlant.setMatureSize(1);
         testPlant.setToxicity(true);
         testPlant.setAirPurifying(true);

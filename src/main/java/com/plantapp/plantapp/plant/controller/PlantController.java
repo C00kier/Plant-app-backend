@@ -34,20 +34,27 @@ public class PlantController {
 
     @PostMapping("/add")
     public ResponseEntity<Plant> addNewPlant(@RequestBody Plant plant) {
-        return ResponseEntity.ok(plantService.addNewPlant(plant));
+        try {
+            return ResponseEntity.ok(plantService.addNewPlant(plant));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping("/delete/{plant-id}")
     public ResponseEntity<Object> deletePlantById(@PathVariable("plant-id") int plantId) {
-        plantService.deletePlantById(plantId);
-        return ResponseEntity.ok().build();
+        try {
+            plantService.deletePlantById(plantId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PutMapping("/{plant-id}")
     public ResponseEntity<Plant> changePlantById(@PathVariable("plant-id") int plantId, @RequestBody Plant plant) {
         try {
             Plant changedPlant = plantService.changePlantById(plantId, plant);
-
             return ResponseEntity.ok(changedPlant);
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

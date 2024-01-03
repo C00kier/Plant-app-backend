@@ -18,7 +18,6 @@ public class Plant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int plantId;
-    private String picture;
     private double matureSize;
     private boolean toxicity;
     private boolean airPurifying;
