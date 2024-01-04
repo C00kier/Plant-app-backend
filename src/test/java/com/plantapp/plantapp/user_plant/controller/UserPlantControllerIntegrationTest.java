@@ -1,12 +1,12 @@
 package com.plantapp.plantapp.user_plant.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.plantapp.plantapp.plant.controller.PlantController;
 import com.plantapp.plantapp.plant.model.Plant;
 import com.plantapp.plantapp.user.model.User;
+import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user_plant.model.UserPlant;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 @DisplayName("Integration tests for User Plant API endpoints")
 @Tag("integration")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserPlantControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
@@ -44,7 +45,21 @@ class UserPlantControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private UserPlantController userPlantController;
+
+    @Autowired
+    private PlantController plantController;
+
+    @Autowired
+    private UserRepository userRepository;
+
     private final int userId = 1;
+
+    @BeforeAll
+    void beforeAll(){
+        dbSetup();
+    }
 
     @Test
     void testGetAllUserPlantsByUserId() throws Exception {
@@ -55,11 +70,11 @@ class UserPlantControllerIntegrationTest {
 
     @Test
     void testAddPlantToUserPlants() throws Exception {
-        User newUser = new User("test@test.com","test123", "testUser");
-        Plant plant = new Plant(0);
+        User user = userRepository.findById(userId).get();
+        Plant plant = plantController.getPlantById(1).getBody();
         UserPlant userPlant = new UserPlant();
         userPlant.setPlant(plant);
-        userPlant.setUser(newUser);
+        userPlant.setUser(user);
         userPlant.setRoom("Test room");
         userPlant.setAlias("Test name");
         userPlant.setLastPropagated(new Date());
@@ -162,5 +177,43 @@ class UserPlantControllerIntegrationTest {
 
         resultActions
                 .andExpect(status().isOk());
+    }
+
+    private void dbSetup(){
+        User user = new User(
+                "test@test.com",
+                "test123",
+                "testUser");
+
+        userRepository.save(user);
+
+        //to test update date methods
+        long millisecondsSinceEpoch = System.currentTimeMillis();
+        long dayBeforeInMilliseconds = millisecondsSinceEpoch - 86400000;
+
+        UserPlant userPlant1 = new UserPlant(1,
+                user,
+                plantController.getPlantById(1).getBody(),
+                "kitchen",
+                "testPlant1",
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds));
+
+        UserPlant userPlant2 = new UserPlant(2,
+                user,
+                plantController.getPlantById(2).getBody(),
+                "kitchen",
+                "testPlant1",
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds),
+                new Date(dayBeforeInMilliseconds));
+
+        userPlantController.addPlantToUserPlants(userPlant1);
+        userPlantController.addPlantToUserPlants(userPlant2);
     }
 }
