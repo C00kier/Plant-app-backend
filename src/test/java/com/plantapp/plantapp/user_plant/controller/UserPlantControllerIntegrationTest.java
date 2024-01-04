@@ -23,8 +23,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,30 +72,34 @@ class UserPlantControllerIntegrationTest {
 
     @Test
     void testAddPlantToUserPlants() throws Exception {
-        User user = userRepository.findById(userId).get();
-        Plant plant = plantController.getPlantById(1).getBody();
-        UserPlant userPlant = new UserPlant();
-        userPlant.setPlant(plant);
-        userPlant.setUser(user);
-        userPlant.setRoom("Test room");
-        userPlant.setAlias("Test name");
-        userPlant.setLastPropagated(new Date());
-        userPlant.setLastFertilized(new Date());
-        userPlant.setLastPruned(new Date());
-        userPlant.setLastRepotted(new Date());
-        userPlant.setLastWatered(new Date());
-        String response = objectMapper.writeValueAsString((userPlant));
-        ResultActions resultActions = this.mockMvc.perform(post("/user-plant/add")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(response))
-                .andDo(MockMvcResultHandlers.print());
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            Plant plant = plantController.getPlantById(1).getBody();
+            UserPlant userPlant = new UserPlant();
+            userPlant.setPlant(plant);
+            userPlant.setUser(user.get());
+            userPlant.setRoom("Test room");
+            userPlant.setAlias("Test name");
+            userPlant.setLastPropagated(new Date());
+            userPlant.setLastFertilized(new Date());
+            userPlant.setLastPruned(new Date());
+            userPlant.setLastRepotted(new Date());
+            userPlant.setLastWatered(new Date());
+            String response = objectMapper.writeValueAsString((userPlant));
+            ResultActions resultActions = this.mockMvc.perform(post("/user-plant/add")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(response))
+                    .andDo(MockMvcResultHandlers.print());
 
-        System.out.println(objectMapper.writeValueAsString((userPlant)));
-        resultActions
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.room").value("Test room"))
-                .andExpect(jsonPath("$.alias").value("Test name"));
+            System.out.println(objectMapper.writeValueAsString((userPlant)));
+            resultActions
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id", notNullValue()))
+                    .andExpect(jsonPath("$.room").value("Test room"))
+                    .andExpect(jsonPath("$.alias").value("Test name"));
+        }else{
+            fail("User couldn't be loaded for the test");
+        }
     }
 
     @Test
@@ -205,8 +211,8 @@ class UserPlantControllerIntegrationTest {
         UserPlant userPlant2 = new UserPlant(2,
                 user,
                 plantController.getPlantById(2).getBody(),
-                "kitchen",
-                "testPlant1",
+                "bathroom",
+                "testPlant2",
                 new Date(dayBeforeInMilliseconds),
                 new Date(dayBeforeInMilliseconds),
                 new Date(dayBeforeInMilliseconds),
