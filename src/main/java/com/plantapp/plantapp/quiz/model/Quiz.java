@@ -1,10 +1,8 @@
 package com.plantapp.plantapp.quiz.model;
 
-import com.plantapp.plantapp.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
