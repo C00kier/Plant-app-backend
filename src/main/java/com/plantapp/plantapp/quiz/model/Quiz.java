@@ -30,6 +30,4 @@ public class Quiz {
     private double mature_size;
     private int care_difficulty;
     private int userId;
-
-
 }

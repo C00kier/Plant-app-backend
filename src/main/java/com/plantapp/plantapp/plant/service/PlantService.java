@@ -52,7 +52,6 @@ public class PlantService implements IPlantService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public Plant addNewPlant(Plant plant) {
         return plantRepository.save(plant);
@@ -114,6 +113,13 @@ public class PlantService implements IPlantService {
                 .filter(p -> p.isToxicity() == isToxic && p.getSun() == sun && p.isAirPurifying() == isAirPurifying
                         && p.getMatureSize() == matureSize && p.getCareDifficulty() == careDifficulty)
                 .toList();
+        if (plants.isEmpty()){
+            return plantDTOMapper.getShorterPlant(plantRepository.findAll()
+                    .stream()
+                    .filter(p -> !p.isToxicity() && p.getCareDifficulty() == 0)
+                    .limit(5)
+                    .collect(Collectors.toList()));
+        }
         return plantDTOMapper.getShorterPlant(plants);
     }
 }
