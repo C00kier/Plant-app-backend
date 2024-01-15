@@ -17,9 +17,8 @@ public interface IUserPlantService {
     void updateUserPlantRoomById(int userPlantId, String roomName);
     void updateUserPlantAliasById(int userPlantId, String alias);
     void updateLastWateredByUserPlantId(int userPlantId, Date date);
-    void updateLastPropagatedByUserPlantId(int userPlantId);
+    void updateLastPropagatedByUserPlantId(int userPlantId, Date date);
     void updateLastRepottedByUserPlantId(int userPlantId, Date date);
     void updateLastFertilizedByUserPlantId(int userPlantId, Date date);
-
-    void updateLastPrunedByUserPlantId(int userPlantId);
+    void updateLastPrunedByUserPlantId(int userPlantId, Date date);
 }

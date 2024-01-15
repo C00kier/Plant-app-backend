@@ -29,11 +29,6 @@ public class UserGameProgressService implements IUserGameProgressService {
         user.ifPresent(value -> userGameProgressRepository.save(new UserGameProgress(0, value)));
     }
 
-    @Override
-    public void postUserExperienceByUserId(int userId, int exp) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> userGameProgressRepository.save(new UserGameProgress(exp, user)));
-    }
 
     @Override
     public int getUserExperienceByUserId(int userId) {
@@ -123,8 +118,7 @@ public class UserGameProgressService implements IUserGameProgressService {
     public int calculatePointLeftToNextLvl(int userExperience) {
         for (UserGameTitle title : UserGameTitle.values()){
             if( userExperience >= title.getMIN_EXPERIENCE() && userExperience <= title.getMAX_EXPERIENCE()){
-                int differance = title.getMAX_EXPERIENCE()-userExperience;
-                return differance;
+                return title.getMAX_EXPERIENCE()-userExperience +1;
             }
         }
         return 0;

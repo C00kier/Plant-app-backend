@@ -82,8 +82,10 @@ public class UserPlantController {
     }
 
     @PatchMapping("/{user-plant-id}/last-propagated")
-    public void updateLastPropagated(@PathVariable("user-plant-id") int userPlantId) {
-        userPlantsService.updateLastPropagatedByUserPlantId(userPlantId);
+    public void updateLastPropagated(@PathVariable("user-plant-id") int userPlantId,
+                                     @RequestBody Map<String, Date> requestBody){
+        Date date = requestBody.get("date");
+        userPlantsService.updateLastPropagatedByUserPlantId(userPlantId, date);
         userActivityService.addPlantActivity(userPlantId, ActivityType.PROPAGATING_PLANT);
     }
 
@@ -104,8 +106,10 @@ public class UserPlantController {
     }
 
     @PatchMapping("/{user-plant-id}/last-pruned")
-    public void updateLastPruned(@PathVariable("user-plant-id") int userPlantId) {
-        userPlantsService.updateLastPrunedByUserPlantId(userPlantId);
+    public void updateLastPruned(@PathVariable("user-plant-id") int userPlantId,
+                                 @RequestBody Map<String, Date> requestBody){
+        Date date = requestBody.get("date");
+        userPlantsService.updateLastPrunedByUserPlantId(userPlantId, date);
         userActivityService.addPlantActivity(userPlantId, ActivityType.PRUNING_PLANT);
     }
 }

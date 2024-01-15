@@ -21,14 +21,12 @@ public class UserGameProgressController {
         this.userActivityService = userActivityService;
         this.userRepository = userRepository;
     }
-    @PostMapping("/post-user-progress")
-    public void postUserExperienceByUserId(@RequestBody UserProgressRequestDTO userProgressRequestDTO){
-        userGameProgressService.postUserExperienceByUserId(userProgressRequestDTO.getUserId(), userProgressRequestDTO.getExp());
-    }
+
+
     @GetMapping("/get-exp")
     public ResponseEntity<Integer> getUserExperienceByUserId(@RequestParam int userId) {
         int experience = userGameProgressService.getUserExperienceByUserId(userId);
-        if (experience != 0) {
+        if (experience >= 0) {
             return ResponseEntity.ok(experience);
         } else {
             return ResponseEntity.notFound().build();
@@ -57,8 +55,8 @@ public class UserGameProgressController {
     }
 
     @DeleteMapping("/delete-exp")
-    public void removeUserExperienceByUserId(@RequestBody User user) {
-        userGameProgressService.removeUserExperienceByUserId(user.getUserId());
+    public void removeUserExperienceByUserId(@RequestParam int userId) {
+        userGameProgressService.removeUserExperienceByUserId(userId);
     }
 
     @PatchMapping("/update-exp")
