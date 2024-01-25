@@ -1,47 +1,63 @@
-# Sprout
-## Overview
+# Sprout - Plant Enthusiast Application
 
 The Sprout is a user-friendly application designed to help plant enthusiasts keep track of their plant collection. Whether you're a seasoned plant parent or just starting your green journey, this app provides a convenient way to manage and care for your plants.
 
-## Frontend
-For the application to work, the frontend must also be launched.
+<p align="center">
+  <img src="https://github.com/C00kier/Sprout-frontend/raw/development/src/assets/readme/main.gif" width="800" height="400" />
+</p>
 
-https://github.com/C00kier/Plant-app-frontend
+## Project Details
 
-## Demo
-https://youtu.be/RRMcCNbmFWc
+- **Technologies Used**:
+
+  ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white), ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+  ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Trello](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white) ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
+- **Purpose**: This project was developed as a learning experience, focusing on Spring, defining the scope of functionalities, and creating a user-friendly plant care app.
+- **Example of User Story**: A user can easily search for plant details, manage plant care routines, and receive personalized recommendations based on their preferences and lifestyle.
+- **Project Status**: The application is fully functional. Future plans include transitioning from JavaScript to TypeScript and introducing an AI bot for generating plant-related queries.
+
+## Authors
+
+- **Mateusz Grygier** - [LinkedIn](https://www.linkedin.com/in/mateusz-grygier/) | [GitHub](https://github.com/HobbitM)
+- **Adrianna Wójcik** - [LinkedIn](https://www.linkedin.com/in/adrianna-wójcik/) | [GitHub](https://github.com/adawojcik)
+- **Iza Bonarowska** - [LinkedIn](https://www.linkedin.com/in/iza-bonarowska/) | [GitHub](https://github.com/izabonarowska)
+- **Sebastian Kostrz** - [LinkedIn](www.linkedin.com/in/sebastian-kostrz-384b7a2a3) | [GitHub](https://github.com/SebastianKostrz)
+- **Bartosz Hiltawski** - [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/Hiltwa)
+- **Paweł Ignaczak** - [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/C00kier)
 
 ## Features
 
-- Searching for Plant Details: Easily search for detailed information about specific plants. Access care tips, growth patterns, and more at your fingertips.
+- **Plant Details**: Easily access detailed information about various plants, including care tips and growth patterns.
+  <p align="center">
+  <img src="https://github.com/C00kier/Sprout-frontend/blob/development/src/assets/readme/search.gif" width="800" height="400" />
+     </p>
+- **Registration**: Create an account to save your home plants
+ <p align="center">
+  <img src="https://github.com/C00kier/Sprout-frontend/blob/development/src/assets/readme/register.gif" width="800" height="400" />
+     </p>
 
-- Blog Articles: Stay informed and entertained with a curated collection of blog articles covering various topics related to plant care, gardening tips, and the latest trends in the plant community.
+- **Blog Articles**: Stay informed and entertained with curated blog articles on plant care, gardening tips, and community trends.
+- **Gamification**: Make plant care engaging with badges, points, and personal challenges.
+- **Recommendation Quiz**: Answer a few questions and receive personalized plant recommendations based on your lifestyle.
+- **Care System**: Set reminders and manage watering, fertilizing, and repotting schedules.
+- **Room Assignment**: Organize plants by assigning them to specific rooms in your home.
+- **Special Names**: Add a personal touch by assigning special names to your plants.
+- **Settings**: Change you account settings
+<p align="center">
+  <img src="https://github.com/C00kier/Sprout-frontend/blob/development/src/assets/readme/settings.gif" width="800" height="400" />
+     </p>
 
-- Gamification: Make plant care fun by incorporating gamification elements. Earn badges, gain points, and set personal challenges to keep your plant care routine engaging.
+## Frontend
 
-- Recommendation Based on Quiz: Answer a few questions in the app's quiz, and receive personalized plant recommendations tailored to your lifestyle, environment, and preferences.
+For the application to function, the frontend must also be launched. Find the frontend [here](https://github.com/C00kier/Sprout-frontend/).
 
-- Care System: Get reminder and manage watering, fertilizing, and repotting of your plants.
+## Click to watch project presentation:
+<a href="http://www.youtube.com/watch?v=RRMcCNbmFWc">
+  <img src="http://img.youtube.com/vi/RRMcCNbmFWc/maxresdefault.jpg" alt="Sprout Demo Video" width="50%" height="50%">
+</a>
 
-- Assigning Plants to Rooms: Organize your plants by assigning them to specific rooms in your home.
+### If you encounter any issues or have questions, please open an issue.
+### Happy planting! 🌱🌿
 
-- Assigning Special Names to Plants: Add a personal touch by giving special names to your plants. Create a connection with your green companions and make plant care a more enjoyable experience.
-
-## Application.properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/YOUR_DB_NAME
-    spring.datasource.username=YOUR_USERNAME
-    spring.datasource.password=YOUR_PASSWORD
-    spring.datasource.driver-class-name=org.postgresql.Driver
-
-    spring.jpa.defer-datasource-initialization=true
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
-    spring.jpa.properties.hibernate.format_sql=true
-
-    secret_key=YOUR_SECRET_KEY
-    google_client_id=YOUR_GOOGLE_CLIENT_ID
-    recaptcha.secret=YOUR_RECAPTCHA_SECRET
-
-If you encounter any issues or have questions, please open an issue.
-
-Happy planting! 🌱🌿

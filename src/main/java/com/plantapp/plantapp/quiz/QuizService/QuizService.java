@@ -33,7 +33,6 @@ public class QuizService {
             } else {
                 quizRepository.save(quiz);
             }
-
         }
     }
 
@@ -44,7 +43,4 @@ public class QuizService {
         }
         return null;
     }
-
-
-
 }

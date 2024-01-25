@@ -1,10 +1,8 @@
 package com.plantapp.plantapp.quiz.model;
 
-import com.plantapp.plantapp.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -30,6 +28,4 @@ public class Quiz {
     private double mature_size;
     private int care_difficulty;
     private int userId;
-
-
 }
