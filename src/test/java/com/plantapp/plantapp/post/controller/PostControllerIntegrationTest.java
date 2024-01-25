@@ -40,7 +40,7 @@ class PostControllerIntegrationTest {
         testPost.setTitle("test title");
         testPost.setLead("test lead");
         testPost.setArticle("test article");
-        testPost.setDate(LocalDate.now());
+        testPost.setDate(LocalDate.now().toString());
 
         ResultActions resultActions = mockMvc.perform(post("/post/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +80,7 @@ class PostControllerIntegrationTest {
         testPost.setTitle("test title");
         testPost.setLead("test lead");
         testPost.setArticle("test article");
-        testPost.setDate(LocalDate.now());
+        testPost.setDate(LocalDate.now().toString());
 
         ResultActions resultActions = mockMvc.perform(post("/post/add")
                 .contentType(MediaType.APPLICATION_JSON)

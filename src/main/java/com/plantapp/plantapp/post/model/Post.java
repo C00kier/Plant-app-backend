@@ -19,6 +19,6 @@ public class Post {
     private String lead;
     @Column(columnDefinition = "text")
     private String article;
-    @Column(columnDefinition = "date")
-    private LocalDate date;
+    @Column(columnDefinition = "text")
+    private String date;
 }
