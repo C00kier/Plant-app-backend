@@ -38,6 +38,7 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String photoUrl;
 
+    private String resetPasswordToken;
 
     public User(String email, String password, String nickName){
         this.email = email;

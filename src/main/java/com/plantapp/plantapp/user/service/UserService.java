@@ -4,6 +4,7 @@ import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.model.UserDTO;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +81,31 @@ public class UserService implements IUserService{
             }
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public Optional<User> getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
 
