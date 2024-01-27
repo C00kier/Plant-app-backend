@@ -3,6 +3,7 @@ package com.plantapp.plantapp.user.controller;
 import com.plantapp.plantapp.user.model.UpdateRequestDTO;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.model.UserDTO;
+import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user.service.UserService;
 import com.plantapp.plantapp.user_activity.service.UserActivityService;
 import com.plantapp.plantapp.user_game_progress.service.UserGameProgressService;
@@ -27,6 +28,8 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
+    private final UserRepository userRepository;
+
     private final UserGameProgressService userGameProgressService;
 
     private final UserPlantService userPlantService;
@@ -45,8 +48,9 @@ public class UserController {
     private String supportName;
 
     @Autowired
-    public UserController(UserService userService, UserGameProgressService userGameProgressService, UserPlantService userPlantService, UserActivityService userActivityService, JavaMailSender mailSender) {
+    public UserController(UserService userService, UserRepository userRepository, UserGameProgressService userGameProgressService, UserPlantService userPlantService, UserActivityService userActivityService, JavaMailSender mailSender) {
         this.userService = userService;
+        this.userRepository = userRepository;
         this.userGameProgressService = userGameProgressService;
         this.userPlantService = userPlantService;
         this.userActivityService = userActivityService;
@@ -90,6 +94,11 @@ public class UserController {
     public ResponseEntity<String> processForgotPassword(@RequestBody Map<String, String> requestBody) throws MessagingException,
             UnsupportedEncodingException {
         String email = requestBody.get("email");
+
+        if (userRepository.findByEmail(email).isEmpty()){
+            return ResponseEntity.badRequest().body("Email not found.");
+        }
+
         String token = generateRandomString();
 
         userService.updateResetPasswordToken(token, email);
@@ -109,9 +118,10 @@ public class UserController {
         if(optionalUser.isPresent()){
             User user = optionalUser.get();
             userService.updatePassword(user, password);
+            return ResponseEntity.ok("The password has been reset");
         }
 
-        return ResponseEntity.ok("The password has been reset");
+        return ResponseEntity.badRequest().body("Reset token not valid");
     }
 
     public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
