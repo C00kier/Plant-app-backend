@@ -102,7 +102,7 @@ public class UserController {
         String token = generateRandomString();
 
         userService.updateResetPasswordToken(token, email);
-        String resetPasswordLink = String.format("%s/reset_password?token=%s", clientAddress, token);
+        String resetPasswordLink = String.format("%s/reset-password?token=%s", clientAddress, token);
         sendEmail(email, resetPasswordLink);
 
         return ResponseEntity.ok("Reset password email has been sent");
