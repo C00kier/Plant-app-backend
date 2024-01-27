@@ -85,7 +85,7 @@ class UserPlantControllerIntegrationTest {
             userPlant.setLastPruned(new Date());
             userPlant.setLastRepotted(new Date());
             userPlant.setLastWatered(new Date());
-            String response = objectMapper.writeValueAsString((userPlant));
+            String response = objectMapper.writeValueAsString(userPlant);
             ResultActions resultActions = this.mockMvc.perform(post("/user-plant/add")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(response))

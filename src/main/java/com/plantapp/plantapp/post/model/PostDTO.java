@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
-public record PostDTO (int id, String title, String lead, LocalDate date) {
+public record PostDTO (int id, String title, String lead, String date) {
 
 }
