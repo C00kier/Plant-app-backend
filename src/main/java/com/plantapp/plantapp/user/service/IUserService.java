@@ -16,4 +16,9 @@ public interface IUserService {
 
     void updateUser(int userId, String oldPassword, String newPassword, String newEmail, String newLogin, String newPhotoUrl);
 
+    void updateResetPasswordToken(String token, String email);
+
+    Optional<User> getByResetPasswordToken(String token);
+
+    void updatePassword(User user, String newPassword);
 }
