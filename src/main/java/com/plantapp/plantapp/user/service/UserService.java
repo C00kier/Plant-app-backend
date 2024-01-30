@@ -72,6 +72,7 @@ public class UserService implements IUserService{
             }
             if (newEmail != null) {
                 user.setEmail(newEmail);
+
             }
             if (newNickName != null) {
                 user.setNickName(newNickName);

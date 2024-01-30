@@ -3,6 +3,7 @@ package com.plantapp.plantapp.user.controller;
 import com.plantapp.plantapp.user.model.UpdateRequestDTO;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.model.UserDTO;
+import com.plantapp.plantapp.user.model.UserType;
 import com.plantapp.plantapp.user.repository.UserRepository;
 import com.plantapp.plantapp.user.service.UserService;
 import com.plantapp.plantapp.user_activity.service.UserActivityService;
@@ -97,6 +98,9 @@ public class UserController {
 
         if (userRepository.findByEmail(email).isEmpty()){
             return ResponseEntity.badRequest().body("Email not found.");
+        }
+        else if (userRepository.findByEmail(email).get().getUserType() == UserType.GOOGLE_USER){
+            return ResponseEntity.status(406).body("Not available for gmail users.");
         }
 
         String token = generateRandomString();
