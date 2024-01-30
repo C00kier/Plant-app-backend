@@ -1,5 +1,6 @@
 package com.plantapp.plantapp.user.controller;
 
+import com.plantapp.plantapp.configuration.JwtService;
 import com.plantapp.plantapp.user.model.UpdateRequestDTO;
 import com.plantapp.plantapp.user.model.User;
 import com.plantapp.plantapp.user.model.UserDTO;
@@ -39,6 +40,8 @@ public class UserController {
 
     private final JavaMailSender mailSender;
 
+    private final JwtService jwtService;
+
     @Value("${client_address}")
     private String clientAddress;
 
@@ -49,13 +52,14 @@ public class UserController {
     private String supportName;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository, UserGameProgressService userGameProgressService, UserPlantService userPlantService, UserActivityService userActivityService, JavaMailSender mailSender) {
+    public UserController(UserService userService, UserRepository userRepository, UserGameProgressService userGameProgressService, UserPlantService userPlantService, UserActivityService userActivityService, JavaMailSender mailSender, JwtService jwtService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.userGameProgressService = userGameProgressService;
         this.userPlantService = userPlantService;
         this.userActivityService = userActivityService;
         this.mailSender = mailSender;
+        this.jwtService = jwtService;
     }
 
     @PostMapping()
@@ -77,8 +81,14 @@ public class UserController {
         if (oldPassword == null && newPassword == null && newEmail == null && newNickName == null && newPhotoUrl == null) {
             return ResponseEntity.badRequest().body("No updates provided.");
         }
-
         userService.updateUser(userId, oldPassword, newPassword, newEmail, newNickName, newPhotoUrl);
+        if (newEmail != null) {
+            User user = userService.getUserById(userId).orElse(null);
+            if (user != null) {
+                String jwt = jwtService.generateToken(user);
+                return ResponseEntity.status(202).body(jwt);
+            }
+        }
         return ResponseEntity.ok("User updated successfully");
     }
 
