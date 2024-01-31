@@ -44,10 +44,10 @@ public class UserPlantController {
     }
 
     @DeleteMapping("/{user-plant-id}")
-        public void removePlantFromUserPlantsById(@PathVariable("user-plant-id") int userPlantId) {
+        public ResponseEntity<String> removePlantFromUserPlantsById(@PathVariable("user-plant-id") int userPlantId) {
         userActivityService.deleteUserActivitiesByUserPlantId(userPlantId);
         userPlantsService.removePlantFromUserPlantsById(userPlantId);
-
+        return ResponseEntity.ok("Plant removed successfully");
     }
 
     @PatchMapping("/{user-plant-id}/room/remove")
