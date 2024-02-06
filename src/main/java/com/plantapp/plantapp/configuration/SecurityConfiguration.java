@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/plant/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()
                                 .requestMatchers("/user-activity-log/**").permitAll()
+                                .requestMatchers("/image/**").permitAll()
                                 .requestMatchers("/admin/**", "/plant/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
