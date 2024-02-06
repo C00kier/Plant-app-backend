@@ -110,8 +110,7 @@ public class PlantService implements IPlantService {
     public List<PlantNameDTO> getPlantsByQuizAnswers(boolean isToxic, int sun, boolean isAirPurifying, double matureSize, int careDifficulty) {
         List<Plant> plants = plantRepository.findAll();
         plants = plants.stream()
-                .filter(p -> p.isToxicity() == isToxic && p.getSun() == sun && p.isAirPurifying() == isAirPurifying
-                        && p.getMatureSize() == matureSize && p.getCareDifficulty() == careDifficulty)
+                .filter(p -> (isToxic || !p.isToxicity()) && p.getSun() == sun && (!isAirPurifying || p.isAirPurifying()) && p.getMatureSize() == matureSize && p.getCareDifficulty() == careDifficulty)
                 .toList();
         if (plants.isEmpty()){
             return plantDTOMapper.getShorterPlant(plantRepository.findAll()
