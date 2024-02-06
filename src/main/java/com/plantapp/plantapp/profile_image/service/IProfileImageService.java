@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface IProfileImageService {
     String uploadImage(MultipartFile file, User user) throws IOException;
-    byte[] getImage(String username);
+    byte[] getImage(User user);
 }

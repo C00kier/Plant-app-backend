@@ -45,8 +45,8 @@ public class ProfileImageService implements IProfileImageService{
     }
 
     @Transactional
-    public byte[] getImage(String username) {
-        Optional<ProfileImage> optionalProfileImage = profileImageRepository.findByName(username);
+    public byte[] getImage(User user) {
+        Optional<ProfileImage> optionalProfileImage = profileImageRepository.findByUser(user);
         byte[] image = null;
         if (optionalProfileImage.isPresent()) {
             image = decompressImage(optionalProfileImage.get().getImageData());
