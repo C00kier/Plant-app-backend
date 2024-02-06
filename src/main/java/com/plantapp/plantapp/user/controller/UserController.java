@@ -14,12 +14,15 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -106,10 +109,9 @@ public class UserController {
             UnsupportedEncodingException {
         String email = requestBody.get("email");
 
-        if (userRepository.findByEmail(email).isEmpty()){
+        if (userRepository.findByEmail(email).isEmpty()) {
             return ResponseEntity.badRequest().body("Email not found.");
-        }
-        else if (userRepository.findByEmail(email).get().getUserType() == UserType.GOOGLE_USER){
+        } else if (userRepository.findByEmail(email).get().getUserType() == UserType.GOOGLE_USER) {
             return ResponseEntity.status(406).body("Not available for gmail users.");
         }
 
@@ -123,13 +125,13 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> processResetPassword(@RequestBody Map<String,String> requestBody) {
+    public ResponseEntity<String> processResetPassword(@RequestBody Map<String, String> requestBody) {
         String resetToken = requestBody.get("resetToken");
         String password = requestBody.get("password");
 
         Optional<User> optionalUser = userService.getByResetPasswordToken(resetToken);
 
-        if(optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             userService.updatePassword(user, password);
             return ResponseEntity.ok("The password has been reset");
@@ -138,11 +140,27 @@ public class UserController {
         return ResponseEntity.badRequest().body("Reset token not valid");
     }
 
-    public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
+    @GetMapping("/google-image/{userId}")
+    public ResponseEntity<Map<String, String>> getGoogleImage(@PathVariable("userId") int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            Map<String, String> map = new HashMap<>();
+            map.put("url", user.getPhotoUrl());
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(map);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    private void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom(supportAddress,supportName);
+        helper.setFrom(supportAddress, supportName);
         helper.setTo(recipientEmail);
 
         String subject = "Reset your Sprout password";
@@ -160,7 +178,7 @@ public class UserController {
         mailSender.send(message);
     }
 
-    public String generateRandomString() {
+    private String generateRandomString() {
         return UUID.randomUUID().toString();
     }
 }

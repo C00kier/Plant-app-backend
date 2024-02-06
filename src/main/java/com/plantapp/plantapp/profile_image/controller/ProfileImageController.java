@@ -25,8 +25,8 @@ public class ProfileImageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) throws IOException {
-        Optional<User> optionalUser = userRepository.findByEmail(username);
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("userId") int userId) throws IOException {
+        Optional<User> optionalUser = userRepository.findById(userId);
 
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -39,12 +39,20 @@ public class ProfileImageController {
                 .body("Couldn't upload image. User not found.");
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<byte[]> getImageByName(@PathVariable("username") String username){
-        byte[] image = profileImageService.getImage(username);
+    @GetMapping("/{userId}")
+    public ResponseEntity<byte[]> getImageByName(@PathVariable("userId") int userId){
+        Optional<User> optionalUser = userRepository.findById(userId);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(image);
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            byte[] image = profileImageService.getImage(user);
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(image);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(null);
     }
 }
