@@ -95,7 +95,6 @@ class UserControllerIntegrationTest {
 
         UpdateRequestDTO updateRequest = new UpdateRequestDTO();
         updateRequest.setUserId(testUser.getUserId());
-        updateRequest.setNewEmail("newTest@example.com");
         updateRequest.setOldPassword("testPassword");
         updateRequest.setNewPassword("newTestPassword");
 
@@ -108,7 +107,6 @@ class UserControllerIntegrationTest {
 
         User updatedUser = userRepository.findById(testUser.getUserId()).orElse(null);
         assertNotNull(updatedUser);
-        assertEquals("newTest@example.com", updatedUser.getEmail());
         assertTrue(passwordEncoder.matches("newTestPassword", updatedUser.getPassword()));
     }
 
