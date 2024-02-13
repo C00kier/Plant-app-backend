@@ -15,8 +15,6 @@
 	<description>plantapp</description>
 	<properties>
 		<java.version>17</java.version>
-		   <source>17</source> 
-    <target>17</target> 
 	</properties>
 	<dependencies>
 		<dependency>
@@ -121,6 +119,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.11.0</version> // replace the maven version number 
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <verbose>true</verbose>
+    </configuration>
+</plugin>
+
 		</plugins>
 	</build>
 
